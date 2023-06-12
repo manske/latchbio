@@ -1,0 +1,40 @@
+{
+  "name": "LatchBio",
+  "logo": {
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#",
+    "light": "#",
+    "dark": "#"
+  },
+  "topbarCtaButton": {
+    "name": "Sign Up",
+    "url": "https://console.latch.bio/"
+  },
+  "topbarLinks": [
+    {
+      "name": "Log In",
+      "url": "https://console.latch.bio/"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "",
+      "icon": "",
+      "url": ""
+    }
+  ],
+  "navigation": [
+    {
+      "group": "",
+      "pages": [""]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "",
+    "linkedin": ""
+  }
+}
