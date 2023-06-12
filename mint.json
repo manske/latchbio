@@ -6,9 +6,9 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#",
-    "light": "#",
-    "dark": "#"
+    "primary": "#001AAE",
+    "light": "#374ED2",
+    "dark": "#001AAE"
   },
   "topbarCtaButton": {
     "name": "Sign Up",
@@ -22,19 +22,29 @@
   ],
   "anchors": [
     {
-      "name": "",
-      "icon": "",
-      "url": ""
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://latchbio.substack.com/"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://forms.gle/sCjr8tdjzx5HjVW27"
     }
   ],
   "navigation": [
     {
-      "group": "",
-      "pages": [""]
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/index",
+        "getting-started/quick-start",
+        "getting-started/authorizing-your-own-workflow",
+        "getting-started/next-steps"
+      ]
     }
   ],
   "footerSocials": {
-    "twitter": "",
-    "linkedin": ""
+    "twitter": "https://twitter.com/latchbio",
+    "linkedin": "https://www.linkedin.com/company/latchbio/"
   }
 }
