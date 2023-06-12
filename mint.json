@@ -41,6 +41,38 @@
         "getting-started/authorizing-your-own-workflow",
         "getting-started/next-steps"
       ]
+    },
+    {
+      "group": "Defining a Workflow",
+      "pages": [
+        "defining-a-workflow/what-is-a-workflow",
+        "defining-a-workflow/split-tasks",
+        {
+          "group": "Workflow Environment",
+          "pages": [
+            "defining-a-workflow/workflow-environment/overview",
+            "defining-a-workflow/workflow-environment/environments-for-individual-tasks",
+            "defining-a-workflow/workflow-environment/common-dockfile-patterns"
+          ]
+        },
+        "defining-a-workflow/latch-urls",
+        "defining-a-workflow/working-with-files",
+        {
+          "group": "Customizing Your Interface",
+          "pages": [
+            "defining-a-workflow/customizing-your-interface/overview",
+            "defining-a-workflow/customizing-your-interface/parameter-types",
+            "defining-a-workflow/customizing-your-interface/workflow-documentation",
+            "defining-a-workflow/customizing-your-interface/previewing-workflow"
+          ]
+        },
+        "defining-a-workflow/messages",
+        "defining-a-workflow/defining-cloud-resources",
+        "defining-a-workflow/caching",
+        "defining-a-workflow/conditional-sections",
+        "defining-a-workflow/map-task",
+        "defining-a-workflow/storing-and-using-secrets"
+      ]
     }
   ],
   "footerSocials": {
