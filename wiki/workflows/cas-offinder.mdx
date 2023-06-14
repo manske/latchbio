@@ -3,202 +3,80 @@ title: "CAS-OFFinder"
 description: "CAS-OFFinder is an algorithm that searches for potential off-target sites of Cas9 RNA-guided endonucleases. It is one of the most highly cited & consistent tools for this purpose."
 ---
 
-Note: Our goal with our platform is to bring a one-stop no-code interface to each of these workflows. We would love to hear about how you use this workflow and what you use it for so we can improve the experience along the road. 
+Note: Our goal with our platform is to bring a one-stop no-code interface to each of these workflows. We would love to hear about how you use this workflow and what you use it for so we can improve the experience along the road.
 
 Your feedback means the world to us. At any time feel free to click the chat icon on our platform (bottom left) to leave comments, requests, questions, bugs, or just say hi :)
 
 ## How to run CAS-OFFinder on Latch
+
 1. **Add CAS-OFFinder to your Workspace**
-    1. Find CAS-OFFinder in "All Workflow" in the Workflows tab and click Add to add it to your workflows
-    2. Open CAS-OFFinder in "Workflows" by selecting and clicking Openew or double clicking it
+   1. Find CAS-OFFinder in "All Workflow" in the Workflows tab and click Add to add it to your workflows
+   2. Open CAS-OFFinder in "Workflows" by selecting and clicking Openew or double clicking it
 2. **Enter parameters for Cas-OFFinder**
-    1. First add your Spacers, these should be your guide RNA sequences without the PAM 
-    2. Select your Target Genome from the list
-    3. Select your PAM based on the protein you are using in your experiment
-    4. Specify the mismatch number, when selecting this number it should be the total number of mismatches between your query sequence and target genome that you are ok with.
-    5. Then fill out the Output Location and click Launch Workflow.
+   1. First add your Spacers, these should be your guide RNA sequences without the PAM
+   2. Select your Target Genome from the list
+   3. Select your PAM based on the protein you are using in your experiment
+   4. Specify the mismatch number, when selecting this number it should be the total number of mismatches between your query sequence and target genome that you are ok with.
+   5. Then fill out the Output Location and click Launch Workflow.
 3. **Within no time your results will show up in the Data tab!**
 
-## Parameters 
+## Parameters
 
 ### Spacers
+
 - This is your guide RNA sequences without the PAM (e.x. no NGG for SpCas9)
-    - These are your crRNA sequences you are searching for in your target genome
-    - Enter these query sequences (5' to 3'), one sequence per line.
-    - Please write crRNA sequences without PAMs.
-    - The length of each query sequence should be between **15 and 25 nt, and all be the same length**.
-    - Please note that large number of bulge size will significantly increase the calculation time!
-    - [Mixed bases](http://www.rgenome.net/cas-offinder/portable#mixedbases) are allowed.
-    - The count of query sequence must be less than 1000.
+  - These are your crRNA sequences you are searching for in your target genome
+  - Enter these query sequences (5' to 3'), one sequence per line.
+  - Please write crRNA sequences without PAMs.
+  - The length of each query sequence should be between **15 and 25 nt, and all be the same length**.
+  - Please note that large number of bulge size will significantly increase the calculation time!
+  - [Mixed bases](http://www.rgenome.net/cas-offinder/portable#mixedbases) are allowed.
+  - The count of query sequence must be less than 1000.
 - Example Value: SpCas9 from Streptococcus pyogenes: 5'-NGG-3'
 
-### Target Genome 
+### Target Genome
+
 - Your genome of interest
 
 ### PAM
+
 - PAM is a Protospace Adjacent Motif. Every RGEN (RNA-Guided Endonuclease) has it's own unique PAM. For example, Cas9 uses 'NGG. Select your PAM based on the protein you are using in your lab.
 - Example Value: SpCas9 from Streptococcus pyogenes: 5'-NGG-3'
 
-### Mismatch Number 
+### Mismatch Number
+
 - The number of allowed mismatches between query & target genome. This is important as this parameter affects the prediction results significantly. When selecting this number it should be the total number of mismatches between your query sequence and target genome that you are ok with.
 - Note: As the number of mismatches increases, the total number of potential off-target sites dramatically increases as well.
 
 ### Output Location
+
 - The directory where the files produced by this workflow will be placed. A path can either be selected or if a new path is typed in field Latch will automatically create the folders in the data viewer.
 
 ## Outputs
-| Id | Bulge type| CrRNA	| DNA	| Chromosome	| Location	| Direction | 
-| Seq1 | DNA | GGCCGACCTGTCGCTGA--CGCNNN | GGCCGtCCTGTtGCTGAGACtCGGG | chr1 | 17408102 | - | 3 | 2 | 
-| Seq2 | RNA | CGCCAGCGTCAGCGACGAAGGTNNN | tGCCAGCGgCAGCGA-GAAGtTTAG | chr1 | 8462729 | + | 3 | 1 | 
-...
-0
-0
-0
-Seq2
-DNA
-CG--CCAGCGTCAGCGACAGGTNNN
-CaCTCCAGCcTCAGCGACAGGcAAG
-chr1
-18173251
-+
-3
-2
-Seq2
-RNA
-CGCCGCAGCGTCAGCGACAGGTNNN
-CGC-GCAGCGaCAGgGAgAGGTGAG
-chr1
-1273663
--
-3
-1
-Seq1
-DNA
-GGCCGACCTGTCGCT--GACGCNNN
-GGCCGtCCTGTtGCTGAGACtCGGG
-chr1
-17408102
--
-3
-2
-Seq2
-RNA
-CGCCAGCGTCGTAGCGACAGGTNNN
-CGCCtGCGg-GgAGCtACAGGTGAG
-chr1
-18888560
-+
-3
-1
-Seq1
-DNA
-GGCCGACC--TGTCGCTGACGCNNN
-GGCCcAgCTCTGTCGCTGACGgGAG
-chr1
-40979785
-+
-3
-2
-Seq2
-DNA
-C--GCCAGCGTCAGCGACAGGTNNN
-CACtCCAGCcTCAGCGACAGGcAAG
-chr1
-18173251
-+
-3
-2
-Seq1
-DNA
-GGCCGACCTGTCGCTG--ACGCNNN
-GGCCGtCCTGTtGCTGAGACtCGGG
-chr1
-17408102
--
-3
-2
-Seq2
-DNA
-CGC--CAGCGTCAGCGACAGGTNNN
-CaCTCCAGCcTCAGCGACAGGcAAG
-chr1
-18173251
-+
-3
-2
-Seq2
-RNA
-CGNCCCAGCGTCAGCGACAGGTNNN
-t-CtCCAGCcTCAGCGACAGGcAAG
-chr1
-18173254
-+
-3
-1
-Seq2
-RNA
-CGCCAGCGTCAGCGGCACAGGTNNN
-CcCCAGaGTCAGC-GCACAGaTGGG
-chr1
-4006295
--
-3
-1
-Seq2
-RNA
-CGCCGCAGCGTCAGCGACAGGTNNN
-CG-CGCAGCGaCAGgGAgAGGTGAG
-chr1
-1273663
--
-3
-1
-Seq2
-RNA
-CGCCAGCGTCGCAGCGACAGGTNNN
-aGCCAGCt-CtCAGCGACAGcTGAG
-chr1
-91631879
-+
-3
-1
-Seq2
-RNA
-CGNCCCAGCGTCAGCGACAGGTNNN
-C-CCCCAGtGTCActGACAGGTGGG
-chr1
-5502832
--
-3
-1
-...
-0
-0
-0
-Seq2
-DNA
-CGCCAGCGTCAGCGACAGG--TNNN
-CcCCAGtGTCAGCcACAGGGCTCAG
-chr1
-34978273
--
-3
-2
-Seq2
-RNA
-CGCCAGCGTCGCAGCGACAGGTNNN
-CGCCtGCG-CGgAGCtACAGGTGAG
-chr1
-18888560
-+
-3
-1
-Seq2
-X
-CGCCAGCGTCAGCGACAGGTNNN
-CtCCAGCcTCAGCGACAGGcAAG
-chr1
-18173253
-+
-3
-0
+
+| Id   | Bulge type | CrRNA                     | DNA                       | Chromosome | Location | Direction | Mismatches | Bulge Size |
+| ---- | ---------- | ------------------------- | ------------------------- | ---------- | -------- | --------- | ---------- | ---------- |
+| Seq1 | DNA        | GGCCGACCTGTCGCTGA--CGCNNN | GGCCGtCCTGTtGCTGAGACtCGGG | chr1       | 17408102 | -         | 3          | 2          |
+| Seq2 | RNA        | CGCCAGCGTCAGCGACGAAGGTNNN | tGCCAGCGgCAGCGA-GAAGtTTAG | chr1       | 8462729  | +         | 3          | 1          |
+| ...  |            |                           |                           |            | 0        |           | 0          | 0          |
+| Seq2 | DNA        | CG--CCAGCGTCAGCGACAGGTNNN | CaCTCCAGCcTCAGCGACAGGcAAG | chr1       | 18173251 | -         | 3          | 2          |
+| Seq2 | RNA        | CGCCGCAGCGTCAGCGACAGGTNNN | CGC-GCAGCGaCAGgGAgAGGTGAG | chr1       | 1273663  | -         | 3          | 1          |
+| Seq1 | DNA        | GGCCGACCTGTCGCT--GACGCNNN | GGCCGtCCTGTtGCTGAGACtCGGG | chr1       | 17408102 | -         | 3          | 2          |
+| Seq2 | RNA        | CGCCAGCGTCGTAGCGACAGGTNNN | CGCCtGCGg-GgAGCtACAGGTGAG | chr1       | 18888560 | -         | 3          | 1          |
+| Seq1 | DNA        | GGCCGACC--TGTCGCTGACGCNNN | GGCCcAgCTCTGTCGCTGACGgGAG | chr1       | 40979785 | -         | 3          | 2          |
+| Seq2 | DNA        | C--GCCAGCGTCAGCGACAGGTNNN | CACtCCAGCcTCAGCGACAGGcAAG | chr1       | 18173251 | -         | 3          | 2          |
+| Seq1 | DNA        | GGCCGACCTGTCGCTG--ACGCNNN | GGCCGtCCTGTtGCTGAGACtCGGG | chr1       | 17408102 | -         | 3          | 2          |
+| Seq2 | DNA        | CGC--CAGCGTCAGCGACAGGTNNN | CaCTCCAGCcTCAGCGACAGGcAAG | chr1       | 18173251 | -         | 3          | 2          |
+| Seq2 | RNA        | CGNCCCAGCGTCAGCGACAGGTNNN | t-CtCCAGCcTCAGCGACAGGcAAG | chr1       | 18173254 | -         | 3          | 1          |
+| Seq2 | RNA        | CGCCAGCGTCAGCGGCACAGGTNNN | CcCCAGaGTCAGC-GCACAGaTGGG | chr1       | 4006295  | -         | 3          | 1          |
+| Seq2 | RNA        | CGCCGCAGCGTCAGCGACAGGTNNN | CG-CGCAGCGaCAGgGAgAGGTGAG | chr1       | 1273663  | -         | 3          | 1          |
+| Seq2 | RNA        | CGCCAGCGTCGCAGCGACAGGTNNN | aGCCAGCt-CtCAGCGACAGcTGAG | chr1       | 91631879 | -         | 3          | 1          |
+| Seq2 | RNA        | CGNCCCAGCGTCAGCGACAGGTNNN | C-CCCCAGtGTCActGACAGGTGGG | chr1       | 5502832  | -         | 3          | 1          |
+| ...  |            |                           |                           |            | 0        |           | 0          | 0          |
+| Seq2 | DNA        | CGCCAGCGTCAGCGACAGG--TNNN | CcCCAGtGTCAGCcACAGGGCTCAG | chr1       | 34978273 | -         | 3          | 2          |
+| Seq2 | RNA        | CGCCAGCGTCGCAGCGACAGGTNNN | CGCCtGCG-CGgAGCtACAGGTGAG | chr1       | 18888560 | -         | 3          | 1          |
+| Seq2 | X          | CGCCAGCGTCAGCGACAGGTNNN   | CtCCAGCcTCAGCGACAGGcAAG   | chr1       | 18173253 | -         | 3          | 0          |
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)

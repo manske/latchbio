@@ -3,19 +3,39 @@ title: "Authoring your Own Workflow"
 description: "In this demonstration, we will examine a workflow which sorts and assembles COVID sequencing data."
 ---
 
-This document aims to be an extension to the [Quickstart](/getting_started/quick-start) to help you better understand the structure of a workflow and write your own.
+This document aims to be an extension to the [Quickstart](/getting-started/quick-start) to help you better understand the structure of a workflow and write your own.
 
 **Prerequisite:**
 
-- Complete the [Quickstart](/getting_started/quick-start) guide.
+- Complete the [Quickstart](/getting-started/quick-start) guide.
 
 **What you will learn:**
 
-- How to write a task and create a workflow
-- How to define compute and storage requirements
-- How to manage third-party dependencies
-- How to customize a user-friendly interface
-- How to test your workflow from the Latch CLI and Latch Console
+<Card
+  title="How to write a task and create a workflow"
+  icon="arrow-progress"
+  iconType="duotone"
+></Card>
+<Card
+  title="How to define compute and storage requirements"
+  icon="hard-drive"
+  iconType="duotone"
+></Card>
+<Card
+  title="How to manage third-party dependencies"
+  icon="bars-progress"
+  iconType="duotone"
+></Card>
+<Card
+  title="How to customize a user-friendly interface"
+  icon="window"
+  iconType="duotone"
+></Card>
+<Card
+  title="How to test your workflow from the Latch CLI and Latch Console"
+  icon="rectange-terminal"
+  iconType="duotone"
+></Card>
 
 ## 1: Initialize Workflow Directory
 
@@ -139,14 +159,14 @@ def my_task(
 
 Internally, Latch uses `Dockerfile`s for dependency management, which are automatically generated from environment files or handwritten.
 
-Install `samtools` and `autoconf` by [adding them to the dependency list in `system-requirements.txt`:](../basics/defining_environment.md#system-debian-packages)
+Install `samtools` and `autoconf` by [adding them to the dependency list in `system-requirements.txt`:](/defining-a-workflow/workflow-environment/overview#system-debian-packages)
 
 ```text
 samtools
 autoconf
 ```
 
-Set an environment variable for bowtie2 using [an environment file](../basics/defining_environment.md#environment-variables):
+Set an environment variable for bowtie2 using [an environment file](/defining-a-workflow/workflow-environment/overview#environment-variables):
 
 ```text
 BOWTIE2_INDEXES=reference

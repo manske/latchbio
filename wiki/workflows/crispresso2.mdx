@@ -1,0 +1,334 @@
+---
+title: "CRISPResso2"
+description: "CRISPResso2 is a software pipeline for the analysis of genome editing experiments. It is designed to enable rapid and intuitive interpretation of results produced by amplicon sequencing."
+---
+
+Briefly, CRISPResso2
+
+- aligns sequencing reads to a reference sequence
+- quantifies insertions, mutations and deletions to determine whether a read is modified or unmodified by genome editing
+- summarizes editing results in intuitive plots and datasets
+
+## How to run CRISPResso2 on Latch
+
+1. **Open CRISPResso2**
+   1. Find CRISPResso2 in "All Workflows" and open the workflow
+2. **Enter the parameters for CRISPResso2**
+   1. First add your **Fastq read files**, make sure they have been uploaded to Latch in the Data tab and then you can select them in the modal.
+      1. If your files are **single end reads** then you only have to select a file for the Read 1 parameter.
+      2. If the file you selected is **interleaved** (paired end reads in a single fastq file) make sure to enable the _Read 1 is Interleaved_ parameter.
+      3. If you have **paired end reads** then make sure to also select a file for the Read 2 parameter.
+   2. The add the **Amplicon Sequences** used, if you have multiple click the plus button to add an additional sequences .
+      1. You can add a name for each amplicon sequence given. If you have multiple amplicon make sure the number and order of the names correspond to the amplicons given above. By default CRISPResso uses "Reference" as the amplicon sequence name.
+   3. _(Optional)_ Then add your **Guide Sequences** (sgRNA).
+      1. Same as with amplicons, you can add a name for each guide sequence given. If you have multiple guides make sure the number and order of the names correspond to the guides given above.
+   4. Then fill out the Output Prefix and Output Location and click Launch Workflow.
+3. **Within no time your results will show up in the Data tab!**
+
+## FYI
+
+- If you want to run multiple executions of this workflow click the large plus button at the bottom of the parameters to add an additional execution of the count workflow.
+- We have hidden many of the optional parameters under Hidden Parameters, you can click that if you would like to fine tune your execution run or want to use any of the advanced parameters.
+
+## Main Parameters
+
+### Read 1
+
+- The first FastQ file, if this is the only Fastq file put as an input CRISPResso will assume it contains single end reads and run it as such.
+
+### Read 1 is Interleaved
+
+- Marks the file in Read 1 as containing interleaved reads. CRISPResso will split the paired end reads into two files before running. Do not enable this if Read 2 has an input.
+
+### Read 2
+
+- The second Fastq file for paired end reads, if both Read 1 and Read 2 contain Fastq files CRISPResso will assume they contain paired end reads and run it as such.
+
+### Amplicon Sequence
+
+- A name for the reference amplicon can be given. If multiple amplicons are given, multiple names can be specified here.
+
+### Amplicon Name (optional)
+
+- A name for the reference amplicon can be given, multiple names can be specified here and the order must correspond to the amplicon sequences given above.
+- By default it is just named "Reference" is used.
+
+### Guide Sequence (sgRNA) (optional)
+
+- sgRNAs should be input as the guide RNA sequence (usually 20 nt) immediately adjacent to but not including the PAM sequence (5' (left) of NGG for SpCas9). If the sgRNA is not provided, quantification may include modifications far from the predicted editing site and may result in overestimation fo editing rates.
+
+### Guide Sequence (sgRNA) Name (optional)
+
+- A name for the guide sequence can be given. Multiple names can be specified here and the order must correspond to the guide sequences given above.
+- By default it is just named "sgRNA" is used.
+
+### Output Name
+
+- The output name of the html report and files.
+
+### Output Location
+
+- The directory where the files produced by this workflow will be placed. A path can either be selected or if a new path is typed in field Latch will automatically create the folders in the data viewer.
+
+## Hidden Parameters
+
+### Amplicon and Read Matching
+
+### Minimum Homology % For Alignment to an Amplicon
+
+- Sequences must have at least this homology percentage score with the amplicon to be aligned. After reads are aligned to a reference sequence, the homology is calculated as the number of bp they have in common. If the aligned read has a homology less than this parameter, it is discarded. This is useful for filtering erroneous reads that do not align to the target amplicon, for example arising from alternate primer locations.
+- Default: 60%
+
+## sgRNA Settings
+
+### Discard Guide Positions that Extend Beyond end of Amplicon
+
+- If set, for guides that align to multiple positions, guide positions will be discarded if plotting around those regions would included bp that extend beyond the end of the amplicon.
+
+### Quantification Window Center [Base Pairs Relative to 3' of sgRNA]
+
+- Center of quantification window to use within respect to the 3' end of the provided sgRNA sequence. Remember that the sgRNA sequence must be entered without the PAM. For cleaving nucleases, this is the predicted cleavage position.
+- Example Values
+  - Cas9: -3 (Which is the CRISPResso Default)
+  - Cpf1: 1
+  - Base Editors: -17
+
+### Quantification Window Size
+
+- Defines the size (in bp) of the quantification window extending from the position specified by the Quantification Window Center parameter in relation to the provided guide RNA sequences. Mutations within this number of base pairs from the quantification window center are used in classifying reads as modified or unmodified. For example setting this to 1bp extends the window on each side of the cleavage position for a total length of 2bp. Disabling this window (setting it to 0) causes all indels in the entire amplicon to be considered.
+- Example Values
+  - Cas9: 1 (Which is the CRISPResso Default)
+  - Cpf1: 1
+  - Base Editors: 10
+
+### Plot Window Size
+
+- This defines the size of the window extending from the quantification window center to plot. Nucleotides within the _Plot Window Size_ of the _Quantification Window Center_ for each guide are plotted.
+- Default is 20
+
+### Ignore Substitutions
+
+- Enabling this causes substitutions events for the quantification and visualization to be ignored.
+
+### Ignore Insertions
+
+- Enabling this causes insertion events for the quantification and visualization to be ignored.
+
+### Ignore Deletions
+
+- Enabling this causes deletion events for the quantification and visualization to be ignored.
+
+### Ignore Indel Reads
+
+- Enabling this causes reads with indels in the quantification window to be discarded from the analysis.
+
+## Prime Editing Parameters
+
+### Spacer Sequence
+
+- Include this instead of sgRNA when doing analysis on Prime Editing. pegRNA spacer sgRNA sequence used in prime editing. The spacer should not include the PAM sequence. The sequence should be given in the RNA 5'->3' order, so for Cas9, the PAM would be on the right side of the given sequence.
+
+### Extension Sequence
+
+- Extension sequence used in prime editing. The sequence should be given in the RNA 5'->3' order, such that the sequence starts with the RT template including the edit, followed by the Primer-binding site (PBS).
+
+### pegRNA Extension Quantification Window Size
+
+- Quantification window size (in bp) at flap site for measuring modifications anchored at the right side of the extension sequence. Similar to the **Quantification Window** parameter, the total length of the quantification window will be 2x this parameter.
+- Default: 5bp (so a 10bp total window size)
+
+### Nicking sgRNA
+
+- The nicking sgRNA sequence used in prime editing. The sgRNA should not include the PAM sequence. The sequence should be given in the RNA 5'->3' order, so for Cas9, the PAM would be on the right side of the sequence.
+
+### Scaffold Sequence
+
+- If given, reads containing any of this scaffold sequence before the Prime Editing _Extension Sequence_ will be classified as 'Scaffold-incorporated'. The sequence should be given in the 5'->3' order such that the RT template directly follows this sequence. A common value ends with 'GGCACCGAGUCGGUGC'.
+
+### Specify Prime Edited Reference Sequence
+
+- If given, this sequence will be used as the prime-edited reference sequence. This may be useful if the prime-edited reference sequence has large indels or the algorithm cannot otherwise infer the correct reference sequence.
+
+## Base Editing Parameters
+
+### Base Editing Output
+
+- Enable this when doing analysis on Base Editing. Will output plots showing the frequency of substitutions in the quantification window are generated. The target and result bases can also be set to measure the rate of on-target conversion at bases in the quantification window.
+
+### Base Editor Target Base
+
+- For base editor plots, this is the nucleotide targeted by the base editor.
+- Default: C
+
+### Base Editor Output Base
+
+- For base editor plots, this is the nucleotide produced by the base editor.
+- Default: T
+
+## Optional Settings
+
+### Include HDR Sequence
+
+- Amplicon sequence expected after HDR. The expected HDR amplicon sequence can be provided to quantify the number of reads showing a successful HDR repair.
+
+### Include Exon Coding Sequence
+
+- Subsequences of the amplicon sequence covering one or more coding sequences for frameshift analysis. Sequences of exons within the amplicon sequence can be provided to enable frameshift analysis and splice site analysis by CRISPResso2. Users should provide the subsequences of the reference amplicon sequence that correspond to coding sequences and not the whole exon sequences.
+
+## Quality Filtering
+
+### Minimum Average Read Quality
+
+- Minimum average quality score (phred33) to keep a read.
+- Default: No Filter (0)
+
+### Minimum Single Base Pair Quality
+
+- Minimum single bp score (phred33) to keep a read
+- Default: No Filter (0)
+
+### Replace Bases With N That Have a Quality Lower Than
+
+- Bases with a quality score (phred33) less than this value will be set to "N".
+- Default: No Filter (0)
+
+## Base Pair Exclusion From Amplicon Sequence for Quantification of Mutations
+
+### Base Pairs Excluded from the Left Side
+
+- Exclude bp from the left side of the amplicon sequence for the quantification of the indels.
+
+### Base Pairs Excluded from the Right Side
+
+- Exclude bp from the right side of the amplicon sequence for the quantification of the indels.
+
+## Trimmomatic Trimming
+
+### Enable Trimming Adaptor
+
+- Enable the trimming of Illumina adapters with Trimmomatic. By default this uses the conda-installed trimmomatic.
+
+## Alignment
+
+### Expand Ambiguous Alignments
+
+- If more than one reference amplicon is given, reads that align to multiple reference amplicons will count equally toward each amplicon. Default behavior is to exclude ambiguous alignments.
+
+### Needleman Wunsch Gap Open
+
+- Gap open option for Needleman-Wunsch alignment.
+- Default: -20
+
+### Needleman Wunsch Gap Incentive
+
+- Gap incentive value for inserting indels at cut sites.
+
+### Needleman Wunsch Gap Extend
+
+- Gap extend option for Needleman-Wunsch alignment.
+
+## FLASH Merging
+
+### Minimum Length Required for Confident Overlap Between Two Reads
+
+- Parameter for the FLASH read merging step. Minimum required overlap length between two reads to provide a confident overlap.
+- Default: 10
+
+### Maximum Overlap Length Expected in ~90% of Read Pairs
+
+- Maximum overlap length expected in approximately 90% of read pairs. Please see the FLASH manual for more information.
+- Default: 100
+
+### Use Stringent Flash Merging
+
+- Use stringent parameters for flash merging. In the case where flash could merge R1 and R2 reads ambiguously, the expected overlap is calculated as `2 \* Average Read Length - Amplicon Length`.
+- The flash parameters for for minimum and maximum overlap above will be set to prefer merged reads with length within 10bp of the expected overlap. These values override the _Minimum Length Required for Confident Overlap Between Two Reads_ or _Minimum Overlap Length Expected in ~90% of Read Pairs_ CRISPResso parameters.
+
+## Report Settings
+
+### Plot Histogram Outliers
+
+- If set, all values will be shown on histograms. By default (if unset), histogram ranges are limited to plotting data within the 99 percentile.
+
+## Allele Plot Parameters
+
+### Maximum Rows Reported in the Alleles Table
+
+- Maximum number of rows to report in the alleles table plot.
+
+### Minimum % Reads Required To Report an Allele in Table Plot
+
+- Minimum % reads required to report an allele in the alleles table plot. This parameter only affects plotting. All alleles will be reported in data files.
+
+### Annotate Wildtype Allele
+
+- Wildtype alleles in the allele table plots will be marked with this string (e.g. \*\*).
+
+### Show Percentage As Reads Aligned to Assigned Reference
+
+- If set, in the allele plots, the percentages will show the percentage as a percent of reads aligned to the assigned reference. Default behavior is to show percentage as a percent of all reads.
+
+### Include Alignment Scores for Each Read Sequence in Allele Table
+
+- If set, a detailed allele table will be written including alignment scores for each read sequence.
+
+### Force Allele Plot and Allele Table To Be the Same
+
+- If set, alleles with different modifications in the quantification window (but not necessarily in the plotting window (e.g. for another sgRNA)) are plotted on separate lines, even though they may have the same apparent sequence. To force the allele plot and the allele table to be the same, set this parameter. If unset, all alleles with the same sequence will be collapsed into one row.
+
+## Output Settings
+
+### Output FastQ File for Each Read
+
+- If set, a fastq file with annotations for each read will be produced.
+
+### Use CRISPResso1 Output Mode
+
+- Output as in CRISPResso1. In particular, if this flag is set, the old output files 'Mapping_statistics.txt', and 'Quantification_of_editing_frequency.txt' are created, and the new files 'nucleotide_frequency_table.txt' and 'substitution_frequency_table.txt' and figure 2a and 2b are suppressed, and the files 'selected_nucleotide_percentage_table.txt' are not produced when Base Editor Output is enabled.
+
+### Place Report in Same Folder as Output Data
+
+- If true, report will be written inside the CRISPResso output folder. By default, the report will be written one directory up from the report output.
+
+### Set File Prefix For Plots and Tables
+
+- File prefix for output plots and table.
+
+### Plot Output as PDF Only
+
+- Suppress output report, plots output as .pdf only (not .png).
+
+### Suppress Output Plots
+
+- Suppress output plots.
+
+## Miscellaneous Parameters
+
+### Read 1 (BAM)
+
+- Aligned reads for processing in bam format. This parameter can be given instead of fastq_r1 to specify that reads are to be taken from this bam file. An output bam is produced that contains an additional field with CRISPResso2 information.
+
+### BAM Chromosome Location
+
+- Chromosome location in bam for reads to process. For example: "chr1:50-100" or "chrX".
+
+### Include dsODN Sequence
+
+- Reads containing the dsODN are labeled and quantified.
+
+## Outputs
+
+The output of CRISPResso2 consists of a set of informative graphs that allow for the quantification and visualization of the position and type of outcomes within an amplicon sequence.
+
+The main output file is **CRISPResso2_report.html** which is a summary report that can be viewed in a web browser containing all of the output plots and summary statistics.
+
+You can view a more detailed explanations of the outputs at the CRISPResso Manual.
+
+## More Resources
+
+- [Source on Github](https://github.com/pinellolab/CRISPResso2)
+- [CRISPResso Manual](https://crispresso.pinellolab.partners.org/help)
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
