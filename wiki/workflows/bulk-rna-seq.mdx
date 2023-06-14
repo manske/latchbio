@@ -1,0 +1,88 @@
+---
+title: "End-to-end bulk RNA-seq analysis using LVBRS"
+sidebarTitle: "Bulk RNA Seq"
+---
+
+<Frame caption="Image generated using DALL·E 2 from OpenAI">
+  <img src="/images/dna.png" />
+</Frame>
+
+Bulk RNA-sequencing (RNA-seq) is a powerful tool for studying gene expression patterns. RNA-seq enables researchers to identify and quantify the transcriptome of a sample by sequencing and analyzing RNA molecules present in the sample. This technique can be used to compare gene expression levels between different samples or conditions and to identify differentially expressed genes that may be associated with specific biological processes or diseases.
+
+Bulk RNA-seq provides a global view of gene expression in the sample. This means that it can be used to identify not only individual differentially expressed genes but also entire pathways or networks of genes that may be involved in a particular biological process. In addition, bulk RNA-seq can identify novel transcripts or splice variants that may not have been previously annotated.
+
+Here, we will use the Latch Verified Bulk RNA-Sequencing (LVBRS) to conduct end-to-end analysis of bulk RNA-seq data. This powerful toolkit facilitates easy quality control, transcript quantification, differential splicing, differential expression analysis, and function enrichment (with support for three databases—Gene Ontology, KEGG Pathway, and Molecular Signatures database—capturing diverse functional information). To demonstrate this, we will reanalyze a publicly available dataset of severe and mild hypoxia induced by Cobalt (II) Chloride (CoCl2) and oxyquinoline (or simply, Oxy) treatment, respectively, in a human colon adenocarcinoma cell line.
+
+Let’s get started!
+
+## Tutorial
+
+1. Under the workflows tab, select the Bulk RNA-seq workflow. If the workflow does not exist in your workflows, add it by selecting “All Workflows,” searching for ‘Bulk RNAseq’ and adding it to your workflows.
+2. Click on the Bulk RNA-seq workflow and navigate the ‘parameters’ tab. This allows users to upload data they want to analyze. These data must be zipped or unzipped FASTQ files with the suffix .fastq, fastq.gz, .fq, or fq.gz.
+    ![](/images/image14.png)
+3. In this tutorial, we will use Test Data, which is already provided on the Latch platform. Click the ‘Use Test Data’ tab and select “Test Data - CoCl2 vs Control (Knyazev, 2021)”
+    ![](/images/image15.png)
+1. This will populate the “Samples” section with the appropriate files—specifically, three control replicates, two replicates for CoCl2 treatment, and three replicates for Oxy treatment.
+    ![](/images/image16.png)
+2. After launching the workflow using the blue “Launch Workflow” button in the bottom right, toggle to the “Graph and Logs” tab.
+    ![](/images/image17.png)
+
+All workflow steps are shown under “Graph and Logs”. Users can view the logs for tools used in each step by clicking on the workflow node. On the right-hand side, the status is “Succeeded,” indicating a successful run of the Bulk RNA-seq workflow. Moreover, other statistics, such as run-time and credits used, are displayed. Also, the directory names of the outputs are shown at the bottom.
+
+1. Navigate to the output directory labeled “RNA-Seq Outputs” and open one of the “multiqc_report.html.” In doing so, you can view different aspects of the read-mapping process such as the percent of aligned reads, million of reads mapped, and fragment length distribution.
+    ![](/images/image18.png)
+1. Navigate to the DESeq2 report in the outputted directory
+    ![](/images/image19.png)
+2. The “Overview” tab provides key high-level information about the dataset, including correlation analysis between samples, plots of the top 50 most expressed genes across all conditions, PCA across the datasets, and a gene size factor distribution. At the bottom of each figure, there is a tab with an explanation of how to interpret each figure. For example, open the tab that says “> Counts Correlation Explanation,” which can be found with the first figure generated in the DESeq2 report.
+    ![](/images/image20.png)
+1. Navigate to the “Contrast” tab to compare the treatment group and the control. Here, you will find an MA plot and Volcano plot, which summarize broad findings from the DESeq2 analysis.
+    ![](/images/image21.png)
+1. Navigate to the “Genes of Interest” tab, which facilitates making plots from query sets of genes. For example, the expression profiles of A1BG-AS1, ACE2, and AA06 are shown here. After genes are added in the “Genes of Interest” tab, they will also be annotated on the volcano plots and MA plots under the “Contrast” tab.
+    ![](/images/image22.png)
+2. Next, search for the “Pathway Enrichment Analysis” workflow in the “All workflows” tab. The workflow requires two inputs: Contrast Data and Report Name.
+    ![](/images/image23.png)
+3. Upload the “Contrast Data” between one of the treatment and control groups. These are enrichment CSVs between different conditions that are outputted from the Bulk RNA-seq workflow with DESeq2.
+    ![](/images/image24.png)
+4. Name the Report however you’d like and Launch the workflow.
+5. Examine the output “Report.html” file. This file contains a comprehensive report of significantly enriched GO terms, KEGG pathways, and MSigs among the differentially expressed genes.
+    ![](/images/image25.png)
+
+1. LVBRS provides additional support for differential alternative splicing analysis. To conduct differential alternative splicing analysis, use the LeafCutter workflow and Launch the analysis. Note, prior to launching the workflow, specify the conditions in the “Sample Conditions for Differential Splicing Analysis” section.
+
+<Note>
+    An existing limitation of LeafCutter is it only works with two comparison groups at a time. If you have more than two groups, we recommend you start a new run for each pairwise comparison.
+</Note>
+
+    ![](/images/image26.png)
+
+1. This will generate numerous files that summarize the LeafCutter outputs
+    ![](/images/image27.png)
+
+The outputs of the LeafCutter workflow include:
+
+- Quantification (STAR): The folder contains BAM files for each bulk RNA-seq sample. The BAM file includes counts of each intron cluster against the chosen reference genome.
+- Alternative Splicing (LeafCutter): The folder contains outputs from the differential intron excision analysis step of LeafCutter. The files are:
+    - `groups.txt`: A text file of the condition table for bulk RNA-seq samples
+    - `{run_name}_perind_numers.counts.gz`: The merged counts of intron clusters across all samples
+    - `leafcutter_ds_cluster_significance.txt`: This shows per cluster p-values for there being differential intron excision between the two groups tested.
+    - `leafcutter_ds_effect_sizes.txt`: This shows per intron effect sizes between the groups.
+- Visualization (Leafviz): The folder contains leafviz.RData, the R data object that is required as the input to the Leafviz RShiny application.
+
+### Conclusion
+With LVBRS, the hassle of data storage, management, and resource allocation is made easy. Thus, biologists can focus on what matters the most — biological insights that can be inferred from experiments.
+
+## Video Tutorials 
+
+### Bulk RNA-Seq Alignment & Quantification
+
+<div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.loom.com/embed/dfba09ba6f524722b5d829f2424a3a3f?sid=73958be1-8ce1-46d5-9710-1c112583ea6a" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+### DESeq2 Quantification 
+
+<div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.loom.com/embed/46d44143a3344860b48c2c3a5e566b63?sid=eb72dc65-6bba-46f9-9e19-3951116268f8" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+### Pathway Analysis
+
+<div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.loom.com/embed/c3848161fd6347cd8b560c5c904116d3?sid=03daeb9a-cb63-49ac-a4a8-0fabdd9c0f47" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+

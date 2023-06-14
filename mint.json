@@ -1,4 +1,5 @@
 {
+  "$schema": "https://mintlify.com/schema.json",
   "name": "LatchBio",
   "logo": {
     "light": "/logo/light.png",
@@ -20,15 +21,17 @@
       "url": "https://console.latch.bio/"
     }
   ],
-  "anchors": [
+  "tabs": [
+    {
+      "name": "Wiki",
+      "url": "wiki"
+    },
     {
       "name": "Blog",
-      "icon": "newspaper",
       "url": "https://latchbio.substack.com/"
     },
     {
       "name": "Community",
-      "icon": "slack",
       "url": "https://forms.gle/sCjr8tdjzx5HjVW27"
     }
   ],
@@ -80,6 +83,29 @@
         "testing-and-debugging-a-workflow/development-and-debugging",
         "testing-and-debugging-a-workflow/learning-through-an-example",
         "testing-and-debugging-a-workflow/remote-execution"
+      ]
+    },
+    {
+      "group": "Introduction",
+      "pages": ["wiki/getting-started"]
+    },
+    {
+      "group": "Workflows",
+      "pages": [
+        "wiki/workflows/bulk-rna-seq",
+        "wiki/workflows/alphafold",
+        "wiki/workflows/cas-offinder",
+        "wiki/workflows/crispresso2",
+        "wiki/workflows/crispror",
+        "wiki/workflows/decodr",
+        "wiki/workflows/mageck-overview",
+        "wiki/workflows/mageck-count",
+        "wiki/workflows/mageck-test",
+        "wiki/workflows/mageck-mle",
+        "wiki/workflows/mageck-pathway",
+        "wiki/workflows/mageck-plot",
+        "wiki/workflows/sars-cov-2",
+        "wiki/workflows/multiqc"
       ]
     }
   ],
