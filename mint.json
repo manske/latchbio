@@ -81,40 +81,6 @@
         "testing-and-debugging-a-workflow/learning-through-an-example",
         "testing-and-debugging-a-workflow/remote-execution"
       ]
-    },
-    {
-      "group": "Publishing a Workflow",
-      "pages": [
-        "publishing-a-workflow/uploading-test-data",
-        "publishing-a-workflow/remote-registration"
-      ]
-    },
-    {
-      "group": "Registry",
-      "pages": [
-        "registry/latch-sdk-registry-integration",
-        "registry/account-objects",
-        "registry/registry-projects",
-        "registry/table-objects",
-        "registry/record-objects"
-      ]
-    },
-    {
-      "group": "Examples",
-      "pages": ["examples/workflow-examples"]
-    },
-    {
-      "group": "Tutorials",
-      "pages": [
-        "tutorials/tutorials",
-        "tutorials/bulk-rna-seq",
-        "tutorials/taxonomy-classification",
-        "tutorials/workflow-sample-sheet"
-      ]
-    },
-    {
-      "group": "CLI",
-      "pages": ["cli/latch-cp", "cli/latch-mv"]
     }
   ],
   "footerSocials": {
