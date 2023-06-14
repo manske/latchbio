@@ -1,0 +1,45 @@
+---
+title: "AlphaFold"
+description: "AlphaFold produces highly accurate protein structure predictions from amino acid sequences."
+---
+
+## How to run AlphaFold on Latch
+
+1. **Find AlphaFold in your Workspace**
+    1. Find **AlphaFold** in "All Workflows" and open the workflow 
+2. **Enter the parameters for AlphaFold**
+    1. First supply your Amino Acid sequences.
+        1. Amino Acid sequences must be provided using FASTA format and can either be input from a file or simply pasted in. More details on the format can be found [here](https://github.com/deepmind/alphafold#examples).
+        ```
+        >sequence_name
+        <SEQUENCE>
+        ```
+        2. AlphaFold2 can be run on either monomers or multimer and is inferred from whether your input has a single or multiple chains.
+        3. Things to note: 
+            1. The amount of time AlphaFold takes to run is increases rapidly relative the size of the Amino Acid. So large sequences can be run, but will take large amount of time and resource to produce an output
+    2. **Next supply the Tuning Parameters**
+        1. Number of Models 
+            1. Number of models to use. **Single** uses 1 model, whereas **Multi** mode will generate 5 results, each using weights trained using a different random seed.
+            2. Default: Single (1 Model)
+        2. Optional Parameters
+            1. Database Size
+                1. **Reduced** will be faster, whereas **Full** will be slightly more accurate
+                2. Default: Reduced
+            2. Template Date
+                1. By default this is set to 2022-01-01.
+                2. If you are predicting the structure of a protein that is already in the [Protein Structure Database](https://alphafold.ebi.ac.uk/) and you wish to avoid using it as a template, then set this date before release date of the structure. For example, if we are running the simulation on Jully 2nd 2022, we set it to 2022-07-02.
+                3. ISO-8601 format i.e. YYYY-MM-DD
+    3. **Specify the output Run Name and Location**
+        1. By default AlphaFold outputs will be put at default location in the data tab - AlphaFold2 Outputs/"Run Name” 
+        2. A custom output path can be supplied and if the folder path does not exist in your data it will be created.
+    4. **Click Launch Execution**
+        1. You can check the status of the workflow execution in the Execution tab on the AlphaFold page or in All Executions. Once the workflow has finished your output files and protein structures can be found on the sidebar on the execution page or in the data tab.
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
+
+            
+
+
+
