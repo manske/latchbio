@@ -5,8 +5,8 @@ description: "We will walk through a quick end-to-end flow for testing and debug
 
 ## Prerequisites
 
-- Install [Latch](/getting_started/quick-start)
-- Have a conceptual understanding of how Latch workflows work through reading the [quick start](/getting_started/quick-start) and [authoring a workflow](/getting_started/authoring-your-own-workflow)
+- Install [Latch](/getting-started/quick-start)
+- Have a conceptual understanding of how Latch workflows work through reading the [quick start](/getting-started/quick-start) and [authoring a workflow](/getting-started/authoring-your-own-workflow)
 - Understand how [latch develop](/testing-and-debugging-a-workflow/development-and-debugging) works
 
 ## Building a Simple Variant Calling Workflow
@@ -206,7 +206,7 @@ def build_index(ref_genome: LatchFile = LatchFile("latch:///wgs/ref_genome/ecoli
 We see that the task is returning a `LatchDir` with the remote path `latch:///wgs/ref_genome`, which indicates that the
 output files are inside the `/wgs/ref_genome` folder in the Latch Console.
 
-![Outputs](../assets/latch-develop-example/ref_genome.png)
+![Outputs](/images/ref_genome.png)
 
 ## Debugging Subsequent Tasks
 
