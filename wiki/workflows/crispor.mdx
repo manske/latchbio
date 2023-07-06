@@ -1,0 +1,92 @@
+---
+title: "CRISPOR"
+description: "[CRISPOR](http://crispor.org/) is a website that helps select and express CRISPR guide sequences, described in two papers ([Gen Biol 2016](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1012-2) and [NAR 2018](https://academic.oup.com/nar/article/46/W1/W242/4995687)). In its default mode, the user pastes an input DNA sequence and chooses the genome."
+---
+
+<Note>
+   Our goal with our platform is to bring a one-stop no-code interface to each of these workflows. We would love to hear about how you use this workflow and what you use it for so we can improve the experience along the road.
+
+   Your feedback means the world to us. At any time feel free to click the chat icon on our platform (bottom left) to leave comments, requests, questions, bugs, or just say hi :)
+</Note>
+
+CRISPOR is made to be fast and easy on Latch. If anything is confusing, you may refer to Maximilian's excellent documentation [here](http://crispor.tefor.net/manual/manual.html#enzymes).
+
+## How to run CRISPOR on Latch
+
+1. **Add CRISPOR to your Workspace**
+   1. Find CRISPOR in "All Workflows" and open the workflow
+2. **Enter the parameters for CRISPOR**
+   1. Enter a single genomic sequence, < 2300 bp, typically an exon
+      1. NOTE: Text case is preserved (e.g. ATCG & atcg both work)
+      2. You can paste multiple sequences >23bp, separated by N characters.
+      3. Avoid using cDNA sequences as input, CRISPR guides that straddle splice sites are unlikely to work.
+   2. Select your genome
+      1. Select from 704 different genomes! Contact CRISPOR support if yours is missing.
+      2. Find links to pre-calculated exonic guides for each genome here on the UCSC genome browser.
+   3. Select a Protospacer Adjacent Motif (PAM)
+      1. Select from ~40 options
+      2. Support for cas9, cas12, casX, & many more
+      3. See notes on enzymes for more info
+   4. Then select the Output Location and click Launch Workflow.
+3. **Within no time your results will show up in the Data tab!**
+
+## Parameters
+
+### Sequence Name
+
+- Just a semantic name for your sequence data
+
+### Sequence
+
+- Enter a single genomic sequence, `<2300` base pairs, typically an exon
+
+### PAM
+
+- Protospacer Adjacent Motif (PAM)
+- For most current applications of the CRISPR-Cas system, Streptococcus pyogenes Cas9 nuclease is used and the corresponding PAM is NGG.
+- However, you can choose other enzymes and corresponding PAMs from the dropdown box.
+
+### Genome
+
+- Select your genome of interest from the list
+
+### Output Location
+
+- The directory where the files produced by this workflow will be placed. A path can either be selected or if a new path is typed in field Latch will automatically create the folders in the data viewer.
+
+## Outputs
+
+### Output 1: Annotated input sequence
+
+The main output of CRISPOR is a page that shows the annotated input sequence at the top and the list of possible guides in the input sequence at the bottom.
+
+<Card
+  title="guide.csv"
+  icon="paperclip"
+  icontype="duotone"
+  href="https://assets.super.so/22b7655b-195c-4af7-8f3b-da7464e61a03/files/13e85722-5bd8-4993-a287-af41c1c52334.csv"
+></Card>
+
+Shown below the input sequence are the guide target sequences, one per PAM. For spCas9, the PAM is NGG and the targets are 20bp long.
+
+![](/images/guidelist.png)
+
+Column 1 - guide name
+
+- this is the position of the PAM on the input sequence and the strand, e.g. “13+”
+  Column 2 - guide sequence
+- the sequence of the guide target and the PAM and the link to its “PCR and cloning primers” (see the [Primers section](http://crispor.tefor.net/manual/#primers)
+  Column 3 - specificity score
+- a prediction of how much an RNA guide sequence for this target may lead to off-target cleavage somewhere else in the genome.
+  Column 4 - efficiency scores
+- the efficiency score is a prediction of how well this target may be cut by its RNA guide sequence.
+  Column 5 - out-of-frame score
+- this score (0-100) is a prediction how likely a guide is to lead to out-of-frame deletions.
+  Column 6 - off-target mismatch counts
+- the number of possible off-targets in the genome, for each number of mismatches.
+  Column 7 - off-targets
+- the locations of all possible off-targets with up to four mismatches, annotated with additional information
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)

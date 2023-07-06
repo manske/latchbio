@@ -1,0 +1,71 @@
+---
+title: "MAGeCK - Count"
+description: "This is the count sub command from MAGeCK. This subcommand collects sgRNA read count information from fastq files or raw count files. The output count table can be used directly in the [MAGeCK Test](https://latch.wiki/mageck-test) or the [MAGeCK MLE](https://latch.wiki/mageck-mle) workflow."
+---
+
+## How to run MAGeCK Count on Latch
+
+1. Find MAGeCK Count in your Workspace
+   1. Find **MAGeCK Count** in "All Workflows" and open the workflow
+2. **Enter the parameters for MAGeCK Count**
+   1. First add your Sample Labels, the labels you add should correspond to the Sample FastQ files you will give MAGeCK. Ex. "L1", "CTRL"
+   2. Then add your Sample FastQ file, these should correspond order wise to the Sample Labels you gave in the previous step.
+      1. If you have technical replicates for a sample, add them within the same box.
+   3. Then select your List Sequence File.
+      1. You can learn more about the format of this file below.
+   4. Then fill out the Output Prefix and Output Location and click Launch Workflow.
+3. **Within no time your results will show up in the Data tab!**
+
+### FYI
+
+- If you want to run multiple executions of this workflow click the large plus button at the bottom of the parameters to add an additional execution of the count workflow.
+
+![](/images/mageck-count.gif)
+
+- We have hidden many of the optional parameters under Hidden Parameters, you can click that if you would like to fine tune your execution run or want to use any of the advanced parameters.
+
+## Required Parameters
+
+### Sample Labels
+
+- The labels of each sample, these labels will be used to specify whether the samples are treatment or control in later MAGeCK steps
+- This defaults to sample1, sample2, etc… but would recommend specifying them yourself in this step as they are needed in later subcommands.
+
+### Fastq reads for each sample
+
+- The reads for each sample and should correspond to each sample label, each sample can have Technical Replicates added as well.
+- Accepted Files
+  - fastq
+  - fastq.gz
+  - SAM/BAM
+
+_FYIs for Fastqs_
+
+- If the sample reads are paired ends, the _2nd Fastq can be added to 2nd FastQ for Paired End Reads_ in the hidden parameters accordion. The files given here must correspond orderwise to the files given in the first Fastq parameter.
+- If you have Biological Replicates treat them as separate samples in MAGeCK Count and then you will be able to specify them as such in the MAGeCK Test and MAGeCK MLE steps when doing analysis.
+
+### List Sequence File
+
+- A file containing the list of sgRNA names, their sequences and associated genes. When starting from FASTQ, FASTQ.GZ or BAM files, MAGeCK needs to know the sgRNA sequences and targeting genes.
+- Accepted Files
+  - .tsv
+  - .csv
+  - .txt with tab or comma separated values
+- Example: - You can download (right click to download) an example txt tab separated library file here:
+  <Card
+    title="library.txt"
+    icon="paperclip"
+    href="https://assets.super.so/22b7655b-195c-4af7-8f3b-da7464e61a03/files/72ddc207-61c7-4345-9f8a-a0095110d28f.txt"
+  >
+    87.7KB
+  </Card>
+  - There are three columns in the library file: the sgRNA ID, the sequence, and
+  the gene it is targeting.
+
+| sgRNA ID | Sequence             | Gene  |
+| -------- | -------------------- | ----- |
+| s_10007  | TGTTCACAGTATAGTTTGCC | CCNA1 |
+| s_10008  | TTCTCCCTAATTGCTTGCTG | CCNA1 |
+| s_10027  | ACATGTTGCTTCCCCTTGCA | CCNC  |
+
+### Output Prefix

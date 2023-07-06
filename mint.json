@@ -95,7 +95,17 @@
         "wiki/workflows/bulk-rna-seq",
         "wiki/workflows/alphafold",
         "wiki/workflows/cas-offinder",
-        "wiki/workflows/crispresso2"
+        "wiki/workflows/crispresso2",
+        "wiki/workflows/crispor",
+        "wiki/workflows/decodr",
+        "wiki/workflows/mageck-overview",
+        "wiki/workflows/mageck-count",
+        "wiki/workflows/mageck-test",
+        "wiki/workflows/mageck-mle",
+        "wiki/workflows/mageck-pathway",
+        "wiki/workflows/mageck-plot",
+        "wiki/workflows/sars-cov-2",
+        "wiki/workflows/multiqc"
       ]
     }
   ],
