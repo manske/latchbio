@@ -1,0 +1,223 @@
+---
+title: "MAGeCK - MLE"
+description: "This is the mle sub command from MAGeCK. Similar to [MAGeCk Test](https://latch.wiki/mageck-test), this subcommand outputs a gene ranking, but uses maximum-likelihood estimation for gene essentiality scores instead of RRA. This subcommand takes the count summary file (*.count.txt) output from [MAGeCk Count](https://latch.wiki/mageck-count)."
+---
+
+<Note>
+   Our goal with our platform is to bring a one-stop no-code interface to each of these workflows. We would love to hear about how you use this workflow and what you use it for so we can improve the experience along the road.
+
+Your feedback means the world to us. At any time feel free to click the chat icon on our platform (bottom left) to leave comments, requests, questions, bugs, or just say hi :)
+
+</Note>
+
+## How to run MAGeK Test on Latch
+
+1. Find **MAGeCK MLE in your Workspace**
+   1. Find **MAGeCK MLE** in "All Workflows" and open the workflow
+2. **Enter the parameters for MAGeCK MLE**
+
+   1. First specify the design matrix for your samples.
+
+   This can either be done by providing a .txt file with the design matrix in it (**see how to format below**).
+
+   — or —
+
+   By having MAGeCK create a design matrix for you by specifying the Labels for the Day 0 Samples in your count table.
+
+   2. Select the count table, if you used MAGeCK Count to generate your count table it will be \*.count.txt file from the count outputs.
+   3. Then fill out the _Output Prefix_ and set an _Output Location_ and click Launch Workflow.
+
+3. **Within no time your results will show up in the Data tab!**
+
+### FYI
+
+- If you want to run multiple executions of this workflow click the large plus button at the bottom of the parameters to add an additional execution of the test workflow.
+- We have hidden many of the optional parameters under Hidden Parameters, you can click that if you would like to fine tune your execution run or want to use any of the advanced parameters.
+
+## Inputs
+
+### Required Inputs
+
+### Count Table
+
+- A tab-separated count table, each line in the table should include sgRNA name (1st column), targeting gene (2nd column) and read counts in each sample. If you used MAGeCK Count to generate your count table it will \*.count.txt file from the count outputs.
+- The read count file should list the names of the sgRNA, the gene it is targeting, followed by the read counts in each sample. Each item should be separated by the tab ('\t'). A header line is optional. For example in the studies of [T. Wang et al. Science 2014](http://www.ncbi.nlm.nih.gov/pubmed/24336569), there are 4 CRISPR screening samples, and they are labeled as: HL60.initial, KBM7.initial, HL60.final, KBM7.final. Here are a few lines of the read count file:
+
+| sgRNA          | Gene | HL60.initial | KBM7.initial | HL60.final | KBM7.final |
+| -------------- | ---- | ------------ | ------------ | ---------- | ---------- |
+| A1CF_m52595977 | A1CF | 213          | 274          | 883        | 175        |
+| A1CF_m52596017 | A1CF | 294          | 412          | 1554       | 1891       |
+| A1CF_m52596056 | A1CF | 421          | 368          | 566        | 759        |
+| A1CF_m52603842 | A1CF | 274          | 243          | 314        | 855        |
+| A1CF_m52603847 | A1CF | 0            | 50           | 145        | 266        |
+
+### Design Matrix File
+
+- A design matrix .txt file can be supplied for MLE. The design matrix file indicates which sample is affected by which condition. It is generally a binary matrix indicating which sample (indicated by the first column) is affected by which condition (indicated by the first row). To create a design matrix file, **copy the following content to a text editing software, and save it as a plain txt file:**
+
+```
+Samples        baseline        HL60        KBM7
+HL60.initial   1               0           0
+KBM7.initial   1               0           0
+HL60.final     1               1           0
+KBM7.final     1               0           1
+```
+
+Or you can download this example design matrix txt file for formatting:
+
+{" "}
+<Card
+  title="designmat.txt"
+  icon="paperclip"
+  href="https://assets.super.so/22b7655b-195c-4af7-8f3b-da7464e61a03/files/0bd8c000-aa30-475e-8fed-f633631c3e3a.txt"
+>
+  0.3KB
+</Card>
+
+Remember the following rules of a design matrix file:
+
+1. The design matrix file must include a header line of condition labels;
+2. The first column is the sample labels that must match sample labels in read count file;
+3. The second column must be a "baseline" column that sets all values to "1";
+4. The element in the design matrix is either "0" or "1";
+5. You must have at least one sample of "initial state" (e.g., day 0 or plasmid) that has only one "1" in the corresponding row. That only "1" must be in the baseline column.
+
+In the design matrix above, we have four samples, two corresponding to the initial states of two cell lines, and two corresponding to the final states of two cell lines. We design two conditions (HL60 and KBM7) that model the cell type-specific effects.
+
+For creating a more complicated design matrix you can reference the [Advanced Design Matrix MAGeCK](https://sourceforge.net/p/mageck/wiki/advanced_tutorial/#tutorial-4-make-full-use-of-mageck-mle-for-more-complicated-experimental-design-eg-paired-samples-time-series) documentation directly.
+
+— or —
+
+### Specify the Day Zero Label
+
+- The name of the control Sample Labels (usually the day 0 or plasmid label) which will tell the MAGeCK MLE module to treat it as a single condition and generate a corresponding design matrix.
+
+### Output Prefix
+
+- The prefix appended to all of the outputted files
+
+### Output Location
+
+- The directory where the files produced by this subcommand will be placed. A path can either be selected or if a new path is typed in field Latch will automatically create the folders in the data viewer.
+
+## Quality Control & Trimming
+
+### Number of Genes For Mean-Variance Modeling
+
+- The number of genes for mean-variance modeling. By default MAGeCK uses 1000 (but might also only use 0, not entirely sure, the documentation is conflicting on this one).
+
+### Number of Rounds For Permutation
+
+- The rounds for permutation. The permutation time is `Number of Genes * x for x Rounds of Permutation`. MAGeCK defaults to 2 rounds but suggests 10 (which may take a longer time).
+
+### Perform Permutation on Genes Separately
+
+- By default gene permutation is performed separately by their number of sgRNAs. Enabling this will perform permutation on all genes together and will make the program faster, but the p value estimation is accurate only if the number of sgRNAs per gene is approximately the same.
+
+### Maximum sgRNAs Per Gene
+
+- MAGeCK won't calculate beta scores or p vales if the number of sgRNAs per gene is greater than this number. This will save a lot of time if some isolated regions are targeted by a large number of sgRNAs (usually hundreds). By default the maximum sgRNAs per gene is 40.
+
+### Remove Outliers
+
+- Enabling this will have MAGeCK try to remove outliers. Turning this option on will slow the algorithm.
+
+### sgRNA Efficiency Prediction File
+
+- An optional file of sgRNA efficiency prediction. The efficiency prediction will be used as an initial guess of the probability an sgRNA is efficient. Must contain at least two columns, one containing sgRNA ID, the other containing sgRNA efficiency prediction.
+
+### sgRNA ID Column in sgRNA Efficiency Prediction File (0 = 1st column)
+
+- The sgRNA ID column in the sgRNA efficiency prediction file (specified by the sgRNA Efficiency Prediction File parameter).
+
+### sgRNA Efficiency Prediction Column in sgRNA Efficiency Prediction File (1 = 2nd column)
+
+- The sgRNA efficiency prediction column in sgRNA efficiency prediction file specified by the sgRNA Efficiency Prediction File parameter).
+
+### Iteratively Update sgRNA Efficiency During EM Iteration
+
+- This will tell MAGeCK to Iteratively update sgRNA efficiency during EM iteration.
+
+### Use Experimental Bayes module to Estimate Gene Essentiality
+
+- This will tell MAGeCK to use the experimental Bayes module to estimate gene essentiality.
+
+### Incorporate PPI As Prior
+
+- This will tell MAGeCK that you want to incorporate PPI as prior.
+
+### Use Weighting Value To Calculate PPI Prior
+
+- This where you can supply the weighting used to calculate PPI prior. If no value is provided MAGeCK will use iterations.
+
+### Labels of Samples For Estimating Variance (Label name must match name given in Sample Labels)
+
+- The gene name of negative controls. The corresponding sgRNA will be viewed independently.
+
+### Method for Normalization
+
+- By default MAGeCK will use Median normalization.
+- Options:
+  - **None**: no normalization
+  - **Median**: median normalization, default
+  - **Total**: normalization by total read counts
+  - **Control**: normalization by control sgRNAs specified by the Control sgRNA option. The median factor used for normalization will be calculated based on control sgRNAs only, rather than all the sgRNAs
+
+### Control sgRNAs
+
+- A list of control sgRNAs for normalization and for generating the null distribution of RRA. Alternatively Control Genes can be specified instead of this parameter. This option tells MAGeCK to use provided negative control sgRNAs to generate the null distribution when calculating the p values. By providing the corresponding sgRNA IDs in this parameter, MAGeCK will have a better estimation of p values.
+- When using this option, you will need to provide a plain text file just containing negative control sgRNA IDS (one per each line). For example,
+
+```
+NonTargetingControlGuideForHuman_0001
+NonTargetingControlGuideForHuman_0002
+NonTargetingControlGuideForHuman_0003
+NonTargetingControlGuideForHuman_0004
+```
+
+### Control Genes
+
+- A list of genes whose sgRNAs are used as control sgRNAs for normalization and for generating the null distribution of RRA. Alternatively Control sgRNA can be specified instead of this parameter. There are several issues that you need to keep in mind:
+  - You should have enough number of negative control guides (>100 recommended) for accurate p value estimation and normalization.
+  - It is known that for growth based screens, non-targeting controls may lead to high false positives (e.g., [Morgens et al. 2017](https://www.nature.com/articles/ncomms15178). Use non-targeting controls carefully.
+- By default MAGeCK will generate the null distribution of RRA scores by assuming all of the genes in the library are non-essential. This approach is sometimes over-conservative, and you can improve this if you know some genes are not essential.
+
+### Copy Number Variation (CNV) Matrix for Normalization
+
+- A matrix of copy number variation data across cell lines to normalize CNV-biased sgRNA scores prior to gene ranking.
+
+### BED File with Gene Positions For Copy Number Variation (CNV) Estimation
+
+- Estimate CNV profiles from screening data. A BED file with gene positions are required as input. The CNVs of these genes are to be estimated and used for copy number bias correction.
+
+## Run Settings
+
+### Debug Mode
+
+- Debug mode to output detailed information of the running.
+
+### Run Debug Mode with Single Gene for MLE Task
+
+- Debug mode to only run one gene with specified ID.
+
+## Outputs
+
+### gene_summary.txt
+
+- This file is a table is pretty similar to the gene summary outputted by the test subcommand with some different columns. You can learn more about the format of it at the MAGeCK Wiki.
+
+### sgrna_summary.txt
+
+- A summary of sgrnas. Please forgive me as I'm not really sure what the complete significance of this file is, but will update this once I figure it out. Or if you can help explain this to me please contact me at nathan@latch.bio.
+
+### Log File
+
+- This file contains all of the logs of the execution. This file is mostly a bunch of techno gobbledygook but you can view it to view any errors the execution might have encountered.
+
+## What is MAGeCK
+
+Model-based Analysis of Genome-wide CRISPR-Cas9 Knockout ([MAGeCK](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0554-4) is a computational tool to identify important genes from the recent genome-scale CRISPR-Cas9 knockout screens (or GeCKO) technology. MAGeCK can be used for prioritizing single-guide RNAs, genes and pathways in genome-scale CRISPR/Cas9 knockout screens. MAGeCK identifies both positively and negatively selected genes simultaneously and reports robust results across different experimental conditions. MAGeCK is developed and maintained by Wei Li and Han Xu from [Prof. Xiaole Shirley Liu's lab](http://liulab.dfci.harvard.edu/) at the Department of Biostatistics and Computational Biology, Dana-Farber Cancer Institute and Harvard School of Public Health. MAGeCK has been used to identify functional lncRNAs from screens with close to [100% validation rate](https://sourceforge.net/p/mageck/wiki/Home/).
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)

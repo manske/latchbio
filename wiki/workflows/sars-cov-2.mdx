@@ -1,0 +1,20 @@
+---
+title: "Sars-Cov-2"
+description: "The Sars-Cov-2 workflow is an amplicon sequencing pipeline used to detect variants in Covid test samples. It simply takes in raw NGS reads."
+---
+
+## Quick Start
+
+1. Find Sars-Cov-2 in "Explore" and click "add" to add it to your workflows
+2. Open Sars-Cov-2 in "Workflows" by clicking "View"
+3. Enter parameters for Sars-Cov-2
+4. Launch workflow
+5. Results appear in Latch Data within 3-5 minutes
+
+### How the pipeline works
+
+1. Use [fastv](https://github.com/OpenGene/fastv) to count kmers with respect to SARS Cov-2 or human genomes as a means to pre-screen false positives.
+2. Construct a genome assembly using b[owtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) using the wuhan genome as a reference.
+3. Construct a consensus sequence from the assembly using [ivar](https://github.com/andersen-lab/ivar).
+4. Clade analysis of consensus using [nextclade](https://clades.nextstrain.org/).
+5. Lineage analysis of consensus using [pangolin](https://github.com/cov-lineages/pangolin).

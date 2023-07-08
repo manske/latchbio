@@ -1,0 +1,219 @@
+---
+title: "MAGeCK - Test"
+description: "This is the test sub command from MAGeCK. This subcommand tests and ranks sgRNAs and genes based on the read count tables provided using [Robust Rank Aggregation](https://pubmed.ncbi.nlm.nih.gov/22247279/) (RRA). This subcommand takes the count summary file (*.count.txt) output from [MAGeCk Count](https://latch.wiki/mageck-count) and its outputs can be passed into [MAGeCk Pathway](https://latch.wiki/mageck-pathway) for gene pathway analysis and to [MAGeCK Plot](https://latch.wiki/mageck-plot) to generate graphics for selected genes."
+---
+
+<Note>
+   Our goal with our platform is to bring a one-stop no-code interface to each of these workflows. We would love to hear about how you use this workflow and what you use it for so we can improve the experience along the road.
+
+Your feedback means the world to us. At any time feel free to click the chat icon on our platform (bottom left) to leave comments, requests, questions, bugs, or just say hi :)
+
+</Note>
+
+## How to run MAGeK Test on Latch
+
+1. Find **MAGeCK Test in your Workspace**
+   1. Find **MAGeCK Test** in "All Workflows" and open the workflow
+2. **Enter the parameters for MAGeCK Test**
+
+   1. First add your _Sample Labels_, these labels should correspond to the labels in your count table. Ex. "L1", "CTRL"
+   2. Then, specify which labels are treatment and which are control.
+      This can either be done by listing each in Sample Types and must correspond to the Sample Labels given in the same order.
+
+   — or —
+
+   You can specify the name of a single _Sample Label_ (usually the day 0 or plasmid label) in the _Specify Single Control Label_ parameter which will tell MAGeCK to treat all other samples as treatments.
+
+   3. Select the count table, if you used MAGeCK Count to generate your count table it will be \*.count.txt file from the count outputs.
+   4. Then fill out the _Output Prefix_ and set an _Output Location_ and click Launch Workflow.
+
+3. **Within no time your results will show up in the Data tab!**
+
+### FYI
+
+- If you want to run multiple executions of this workflow click the large plus button at the bottom of the parameters to add an additional execution of the test workflow.
+- We have hidden many of the optional parameters under Hidden Parameters, you can click that if you would like to fine tune your execution run or want to use any of the advanced parameters.
+
+## Required Parameters
+
+### Sample Labels
+
+- The labels of each sample in the count table. The names and number of labels listed must correspond to samples listed in the count table.
+
+_Which samples are treatment or control, this can be done in one of two ways:_
+
+### Sample Types
+
+- A list that specifies whether each of the sample labels listed above are a treatment or a control sample. This list must correspond to the list of Sample Labels given.
+
+— or —
+
+### Specify Single Control Label
+
+- The name of a single Sample Label (usually the day 0 or plasmid label) which will tell MAGeCK to treat all other samples as treatments.
+
+### Sample Inputs Are Paired
+
+- Enabling this tells MAGeCK to do paired sample comparisons.
+
+  - When enabled, the sample labels given must be listed paired, so treatment-1, control-1, treatment-2, control-2, etc...
+
+  **For example:**
+  Sample Labels: HL60.final, HL60.intial, KBM7.final, KBM7.intial  
+   Sample Types: Treatment, Control, Treatment, Control
+
+### Count Table
+
+- A tab-separated count table, each line in the table should include sgRNA name (1st column), targeting gene (2nd column) and read counts in each sample. If you used MAGeCK Count to generate your count table it will \*.count.txt file from the count outputs.
+- The read count file should list the names of the sgRNA, the gene it is targeting, followed by the read counts in each sample. Each item should be separated by the tab ('\t'). A header line is optional. For example in the studies of [T. Wang et al. Science 2014](http://www.ncbi.nlm.nih.gov/pubmed/24336569), there are 4 CRISPR screening samples, and they are labeled as: HL60.initial, KBM7.initial, HL60.final, KBM7.final. Here are a few lines of the read count file:
+
+| sgRNA          | Gene | HL60.initial | KBM7.initial | HL60.final | KBM7.final |
+| -------------- | ---- | ------------ | ------------ | ---------- | ---------- |
+| A1CF_m52595977 | A1CF | 213          | 274          | 883        | 175        |
+| A1CF_m52596017 | A1CF | 294          | 412          | 1554       | 1891       |
+| A1CF_m52596056 | A1CF | 421          | 368          | 566        | 759        |
+| A1CF_m52603842 | A1CF | 274          | 243          | 314        | 855        |
+| A1CF_m52603847 | A1CF | 0            | 50           | 145        | 266        |
+
+### Output Prefix
+
+- The prefix appended to all of the outputted files.
+
+### Output Location
+
+- The directory where the files produced by this subcommand will be placed. A path can either be selected or if a new path is typed in field Latch will automatically create the folders in the data viewer.
+
+## Hidden Parameters
+
+### Quality Control & Trimming
+
+### Method for Normalization
+
+- By default MAGeCK will use Median normalization.
+- Options:
+  - **None**: No normalization
+  - **Median**: Median normalization – Default
+  - **Total**: Normalization by total read counts
+  - **Control**: Normalization by control sgRNAs specified by the Control sgRNA option. The median factor used for normalization will be calculated based on control sgRNAs only, rather than all the sgRNAs
+
+### Control sgRNAs
+
+- A list of control sgRNAs for normalization and for generating the null distribution of RRA. Alternatively Control Genes can be specified instead of this parameter. This option tells MAGeCK to use provided negative control sgRNAs to generate the null distribution when calculating the p values. By providing the corresponding sgRNA IDs in this parameter, MAGeCK will have a better estimation of p values.
+- When using this option, you will need to provide a plain text file just containing negative control sgRNA IDS (one per each line). For example,
+
+```
+NonTargetingControlGuideForHuman_0001
+NonTargetingControlGuideForHuman_0002
+NonTargetingControlGuideForHuman_0003
+NonTargetingControlGuideForHuman_0004
+```
+
+### Control Genes
+
+- A list of genes whose sgRNAs are used as control sgRNAs for normalization and for generating the null distribution of RRA. Alternatively Control sgRNA can be specified instead of this parameter. There are several issues that you need to keep in mind:
+  - You should have enough number of negative control guides (>100 recommended) for accurate p value estimation and normalization.
+  - It is known that for growth based screens, non-targeting controls may lead to high false positives (e.g., [Morgens et al. 2017](https://www.nature.com/articles/ncomms15178). Use non-targeting controls carefully.
+- By default MAGeCK will generate the null distribution of RRA scores by assuming all of the genes in the library are non-essential. This approach is sometimes over-conservative, and you can improve this if you know some genes are not essential.
+
+### p-Value Threshold For FDR Gene Test
+
+- The p value threshold to determine the alpha value of RRA in gene test. The default value is set as 0.25.
+
+### sgRNA-Level p-Value Adjustment Method
+
+- The method for sgrna-level p-value adjustment, by default MAGeCK will use False Discovery Rate (fdr). Holm's Method (holm) and Pounds's Method (pounds) can also be used.
+
+### Labels of Samples for Estimating Variance
+
+- Sample label or sample index for estimating variances. The label names given here must match the name given in Sample Labels.
+
+### Remove sgRNAs Whose Mean Value is Zero In
+
+- Specify where sgRNAs whose mean value is zero should be removed, this can be either remove none, only the treatment, only the control, both the treatment and control, or any sgRNA where the mean value is zero.
+- MAGeCK defaults to removing from both the treatment and control sgRNA.
+
+### Remove Zeros Threshold
+
+- The sgRNA normalized count threshold to be considered removed in the _Remove sgRNAs Whose Mean Value Is Zero_ option. By default this threshold is 0.
+
+### Log2 Fold Changes (LFC) Calculation Method
+
+- Method to calculate gene log2 fold changes (LFC) from sgRNA LFCs. Available methods include the median/mean of all sgRNAs (median/mean), or the median/mean sgRNAs that are ranked in front of the alpha cutoff in RRA (alphamedian/alphamean), or the sgRNA that has the second strongest LFC (secondbest). In the alphamedian/alphamean case, the number of sgRNAs correspond to the "goodsgrna" column in the output, and the gene LFC will be set to 0 if no sgRNA is in front of the alpha cutoff. The default value is median.
+
+### Copy Number Variation (CNV) Matrix for Normalization
+
+- A matrix of copy number variation data across cell lines to normalize CNV-biased sgRNA scores prior to gene ranking.
+
+### Cell Line Name For Copy Number Variation (CNV) Normalization
+
+- The name of the cell line to be used for copy number variation normalization. Must match one of the column names in the file provided for Copy Number Variation (CNV) Matrix.
+
+### BED File with Gene Positions For Copy Number Variation (CNV) Estimation
+
+- Estimate CNV profiles from screening data. A BED file with gene positions are required as input. The CNVs of these genes are to be estimated and used for copy number bias correction.
+
+## Output Settings
+
+### Sort Criteria for Output Summaries
+
+- Tells MAGeCK to sort summaries either by negative selection (neg) or positive selection (pos). By default MAGeCK will sort by negative selection.
+
+### Generate PDF Report of Analysis
+
+- Enabling this might do something, not sure…
+
+### Generate File With Normalized Read Counts
+
+- Save unmapped reads to file, with sgRNA lengths specified by sgRNA Length parameter which might be combine with this one or be a separate parameter, I'm not sure yet...
+
+### Keep Intermediate Files
+
+- This will have MAGeCK keep the _.gene.high.txt, _.gene.low.txt, phigh.txt and plow.txt which are used in generating the gene/sgrna ranking and normally deleted at the end of the execution by MAGeCK.
+
+## Outputs
+
+### gene_summary.txt
+
+- This file is a table with the p-values and FDRs of all genes computed by MAGeCK. You can learn more about the format of it at the [MAGeCK Wiki](https://sourceforge.net/p/mageck/wiki/output/#gene_summary_txt).
+
+### sgrna_summary.txt
+
+- Results by guide. You can learn more about the format of it at the [MAGeCK Wiki](https://sourceforge.net/p/mageck/wiki/output/#gene_summary_txt).
+
+### .R File
+
+- This file contains code that can be executed within the R software environment to plot the data from the count subcommand and create a PDF from it. This file can be used in a program such as [RStudio](https://www.rstudio.com/).
+
+### summary.Rnw
+
+- This file is called by the counts summary.R file and has the specific code for plotting the results.
+
+### Log File
+
+- This file contains all of the logs of the execution. This file is mostly a bunch of techno gobbledygook but you can view it to view any errors the execution might have encountered.
+
+## Temporary Files
+
+### gene.high.txt
+
+- The gene ranking results (positively selected genes). Used in the RRA analysis.
+
+### gene.low.txt
+
+- The gene ranking results (negatively selected genes). Used in the RRA analysis.
+
+### phigh.txt
+
+- An sgrna ranking file created and used by MAGeCK for RRA analysis.
+
+### plow.txt
+
+- An sgrna ranking file created and used by MAGeCK for RRA analysis.
+
+## What is MAGeCK
+
+Model-based Analysis of Genome-wide CRISPR-Cas9 Knockout ([MAGeCK](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0554-4) is a computational tool to identify important genes from the recent genome-scale CRISPR-Cas9 knockout screens (or GeCKO) technology. MAGeCK can be used for prioritizing single-guide RNAs, genes and pathways in genome-scale CRISPR/Cas9 knockout screens. MAGeCK identifies both positively and negatively selected genes simultaneously and reports robust results across different experimental conditions. MAGeCK is developed and maintained by Wei Li and Han Xu from [Prof. Xiaole Shirley Liu's lab](http://liulab.dfci.harvard.edu/) at the Department of Biostatistics and Computational Biology, Dana-Farber Cancer Institute and Harvard School of Public Health. MAGeCK has been used to identify functional lncRNAs from screens with close to [100% validation rate](https://sourceforge.net/p/mageck/wiki/Home/).
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
