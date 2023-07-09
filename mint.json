@@ -107,6 +107,12 @@
         "wiki/workflows/sars-cov-2",
         "wiki/workflows/multiqc"
       ]
+    },
+    {
+      "group": "Workflow Helpers",
+      "pages": [
+        "wiki/workflow-helpers/csv-import"
+      ]
     }
   ],
   "footerSocials": {
