@@ -1,0 +1,39 @@
+---
+title: "Bulk Import Data Using a CSV"
+---
+
+Alternatively, you can easily use an existing CSV that you have locally to populate the table in Registry. To do so, you can click on the “Import” button and choose “Import CSV”.
+
+![](/images/bulk-import-1.png)
+
+As an exercise, we will use the [metadata sheet](https://docs.google.com/spreadsheets/d/1i3HdGhWC4P7RYlmswxnE6LjcfAroSx61PQR20q6mCZM/edit?usp=sharing) from Yost et. al (2019) here. To follow along, download the Google Sheet to your local computer.
+
+<Note>
+    Note that Registry CSV import only supports **.csv** at the moment. If you have an Excel file (.xls, .xlsx) or text file (.txt), please make sure to save them as a CSV first. 
+</Note>
+
+Once you have clicked “Import CSV”, a new modal will pop up with a view of your Latch Data. Select “Upload Files” to upload the metadata sheet downloaded in the previous step.
+
+![](/images/bulk-import-2.png)
+
+Once the file finishes uploading, choose the CSV and click “Select”.
+
+![](/images/bulk-import-3.png)
+
+Once you choose the CSV file, a pop-up window will show up, which lets you map the columns from the CSV to the registry table columns.
+
+![](/images/bulk-import-4.png)
+
+You can choose to create new columns for Registry or select existing columns to map the data to. New tables only have one default existing column, which is “Name”. Let’s change the mapped column for the “Sample Name” (in the original CSV) to “Name” (in the Registry).
+
+![](/images/bulk-import-5.png)
+
+You can also change the types of the column to be imported. As an exercise, we can change the type of the columns “organism_name” and “Strandedness” to “Select”.
+
+Once the import finishes, you will see your Registry table populated like so.
+
+![](/images/bulk-import-6.png)
+
+</Note>
+    **Pro-tip:** If you want to import a CSV with new columns and one of the columns contains values that match record names in the Registry, the columns and their values will be linked with those records automatically.
+</Note>

@@ -62,6 +62,25 @@
     {
       "group": "Upload Your Custom Workflow",
       "pages": ["wiki/upload-your-custom-workflow/the-latch-sdk"]
+    },
+    {
+      "group": "Registry",
+      "pages": [
+        "wiki/registry/what-is-a-registry",
+        "wiki/registry/create-a-project",
+        "wiki/registry/create-a-table",
+        {
+          "group": "Add Records to a Table",
+          "pages": [
+            "wiki/registry/add-records-to-a-table/single-records",
+            "wiki/registry/add-records-to-a-table/bulk-link",
+            "wiki/registry/add-records-to-a-table/bulk-link"
+          ]
+        },
+        "wiki/registry/modify-records-in-a-table",
+        "wiki/registry/connect-records-across-tables",
+        "wiki/registry/import-registry-records"
+      ]
     }
   ],
   "footerSocials": {
