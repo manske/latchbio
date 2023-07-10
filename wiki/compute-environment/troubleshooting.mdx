@@ -1,0 +1,51 @@
+---
+title: "Common Errors when using Pods"
+sidebarTitle: "Troubleshooting"
+---
+
+## I can’t connect to Pods via SSH.
+
+`kex_exchange_identification: Connection closed by remote host`
+- This means that an error cannot be established between your local computer and Pods. 
+- Try stopping and starting your Pod to refresh the connection.
+- **Important**: You cannot SSH into a Pod when the status of Pod is **Dormant** or **Starting**. You can only establish a connection to the Pod when it is running. 
+
+`Error: Permission denied (publickey)`
+- The error means that the SSH key Pod is authenticating is different from the SSH key on the computer you are trying to connect from. Hence, Pod rejects your connection.
+- Double check at the SSH key you have on [Account Settings > Developer](https://console.latch.bio/settings/developer) is the same as the SSH key of the machine you’re trying to connect from.
+- If the SSH keys are the same, but you are still unable to connect to Pod via SSH, this may mean that you added your SSH keys to the Developer Settings after the Pod was created. Since SSH keys are only automatically injected into Pods at creation time, your SSH key may have not been loaded into Pod. 
+
+## I want to manually add additional SSH keys to an existing Pod. 
+- To manually add your SSH public key to Pod, please follow the steps below: 
+    1. Open Jupyter Labs inside your Pod
+    2. Open the Terminal
+    3. Enter the SSH folder on the your Pod: `cd /etc/ssh`
+    4. Create a folder called `authorized_keys` if one does not exist: `mkdir authorized_keys`
+    5. Enter the authorized keys folder: `cd authorized_keys`
+    6. Create a file to store authorized keys: `touch root`.
+    7. Add permission to the newly created file, so only the owner can have full read and write access to the file, while no other user can access the file: `chmod 600 root`
+    8. Install nano or VIM as a text editor if one doesn’t exist: `apt install nano`
+    9. Open the authorized_keys file: `nano root`
+    10. Paste in your public keys verbatim
+- Now, you should be able to SSH into Pod from your local terminal. 
+
+## I can’t open RStudio or Jupyter Labs. 
+
+Your Pod and notebooks have not fully started yet. 
+
+- RStudio and Jupyter Labs may take 10-30 seconds after a Pod is running to fully start. 
+- Wait ~30 seconds and retry opening the notebooks. 
+
+If a new tab opens but takes a long time to load and you get a `502 Gateway Error`, try stoping and starting the Pod to refresh the connection. 
+
+_Did you run into any errors that were not listed here? Please send an email to Hannah at hannah@latch.bio, and we will respond with a solution!_
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
+
+
+
+
+
+

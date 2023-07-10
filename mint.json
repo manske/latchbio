@@ -94,6 +94,14 @@
         "wiki/compute-environment/rshiny-app",
         "wiki/compute-environment/troubleshooting"
       ]
+    },
+    {
+      "group": "Visualizations",
+      "pages": [
+        "wiki/visualizations/fastqc",
+        "wiki/visualizations/multiqc",
+        "wiki/visualizations/igv"
+      ]
     }
   ],
   "footerSocials": {
