@@ -102,6 +102,15 @@
         "wiki/visualizations/multiqc",
         "wiki/visualizations/igv"
       ]
+    },
+    {
+      "group": "Pollock— Single-cell Visualizer",
+      "pages": [
+        "wiki/pollock/getting-started",
+        "wiki/pollock/methods",
+        "wiki/pollock/tutorial-alzhiemers",
+        "wiki/pollock/tutorial-census"
+      ]
     }
   ],
   "footerSocials": {
