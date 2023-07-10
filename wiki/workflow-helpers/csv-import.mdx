@@ -28,3 +28,47 @@ description: "Every workflow in Latch allows you to import a CSV containing valu
 
 - If one of the columns in your CSV requires a file path, you have to ensure that the file path matches that on Latch.
 - To do so, click on the file you are interested in.
+
+![](/images/file-paths.png)
+
+- On the right sidebar, select “Copy” to copy the file path of your file. 
+
+![](/images/share.png)
+
+- Paste the file path into the CSV. 
+
+## Using CSV Import
+
+1. Click the **Import CSV** button at the top right of the workflow parameters section.
+
+![](/images/import-csv.png)
+
+2. Select your CSV from your data on Latch
+
+![](/images/select-csv.png)
+
+or select from your computer
+
+![](/images/your-computer.png)
+
+3. The importer will then automatically try to match the columns in your CSV to its corresponding parameter. 
+
+  When a column is matched to a parameter it will either show: 
+
+  1. A green check mark which means all of values in that column have passed the validation and are formatted correctly for that parameter. 
+
+  — or —
+
+  2.  A red warning triangle which means that some of the data in the matched column is formatted incorrectly for that parameter.  
+
+  ![](/images/red-warning.png)
+
+  Any errors can be fixed in the next step.
+
+  If the importer is unable to automatically match a column it won't display any icon. You can manually map it to a parameter by clicking the input and selecting its corresponding parameter. 
+
+  ![](/images/importer.gif)
+  
+4. You will then be able to review and edit all of the data before importing. Any cells with errors will be marked with a red warning triangle which you can hover over to view details on the formatting error. You click into the cell to edit and fix any errors before importing. 
+
+![](/images/cells.gif)

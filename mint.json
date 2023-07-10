@@ -58,6 +58,10 @@
     {
       "group": "Workflow Helpers",
       "pages": ["wiki/workflow-helpers/csv-import"]
+    },
+    {
+      "group": "Upload Your Custom Workflow",
+      "pages": ["wiki/upload-your-custom-workflow/the-latch-sdk"]
     }
   ],
   "footerSocials": {
