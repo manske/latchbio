@@ -111,6 +111,17 @@
         "wiki/pollock/tutorial-alzhiemers",
         "wiki/pollock/tutorial-census"
       ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "wiki/integrations/basespace",
+        "wiki/integrations/mount-s3-buckets"
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": ["wiki/resources/faq", "wiki/resources/privacy-policy"]
     }
   ],
   "footerSocials": {

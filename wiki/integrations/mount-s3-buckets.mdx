@@ -1,0 +1,33 @@
+---
+title: "S3 Buckets"
+sidebarTitle: "S3 Buckets"
+description: "Latch allows you to mount your own AWS S3 Buckets and use them the same (well mostly the same) as you would any data on Latch. All you need is to connect AWS account with Latch which will allow you to mount any buckets in that account onto Latch."
+---
+
+## How to Mount an S3 Bucket on Latch
+
+1. Go to the **Data Tab** and click the **Mount S3 Bucket** button.
+2. If you have not connected Latch with your AWS account yet it will prompt you to do so. Click the **Connect AWS Account →** button.
+
+![](/images/mounts3-1.png)
+
+3. _If not already_, log into the AWS account which contains your buckets.
+4. You will directed you to an AWS CloudFormation "Quick create stack" template.
+   1. This template will create an IAM (Identity and Access Management) role with permissions necessary to discover and configure all S3 buckets that your AWS account has access to.
+      ![](/images/mounts3-2.png)
+5. Review and click **Create Stack**.
+6. Wait for the stack to finish being created.
+7. After it has finished return to the Mount S3 Bucket modal on Latch which should show your AWS account and all of its available buckets.
+   1. _You might have to click the refresh button on the modal a few times before your buckets show up_.
+8. Click the **Mount/Add Link** button for the bucket you want to mount. The modal will close and the bucket you added will appear in the data list.
+   1. It might take a little bit and we're going to add a loading indicator, sorry about that since it looks like it doesn't do anything when you click it.
+
+### Removing a Mounted Bucket
+
+1. Simply hover over the bucket in the data viewer, click the ellipsis and select Delete.
+
+## Troubleshooting
+
+### My bucket isn't showing up in the list in the Mount S3 Bucket modal.
+
+This might be because your bucket isn't versioned. Latch only supports versioned buckets for mounting. To check to see if your bucket is versioned or not, open the bucket in S3, go to the **Properties** tab, and it is the 2nd panel, **Bucket Versioning**.

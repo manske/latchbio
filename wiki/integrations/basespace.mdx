@@ -1,0 +1,32 @@
+---
+title: "BaseSpace Integration"
+sidebarTitle: "BaseSpace"
+description: "This tutorial explains how to get an API key from BaseSpace that you can use to automatically import your sequencing runs into Latch."
+---
+
+## Step by Step
+
+1. [Register](https://developer.basespace.illumina.com/apps) as a developer on the BaseSpace Dev Portal
+2. [Create a new application](https://developer.basespace.illumina.com/apps/new)
+   ![](/images/basespace-1.png)
+3. Set Application Details
+   1. Application Name: `LatchBio <> [Your Organization] | API Key`
+   2. Organization Name: `LatchBio`
+   3. App Type: `Native`
+   4. Description: `For transfer of FASTQ files from BaseSpace.`
+4. Go to Credentials
+   ![](/images/basespace-2.png)
+5. Copy your API Key
+   ![](/images/basespace-3.png)
+6. Go to the [Latch Platform](https://console.latch.ai/) and the Data Tab.
+7. Click the Import from BaseSpace button (cloud icon).
+   ![](/images/basespace-4.png)
+8. Add an account and paste your Access Token and give it a display name to help you identify which BaseAccount it corresponds to.
+   ![](/images/basespace-5.png)
+9. Select and import your runs
+   1. You’re able to either import the raw Run files or a Project into Latch.
+   2. It will show up in a folder named “BASESPACE_IMPORTS”
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
