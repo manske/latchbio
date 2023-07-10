@@ -1,0 +1,37 @@
+---
+title: "Bulk Link Sequencing Files to Existing Records"
+---
+
+To bulk link sequencing files on Latch with records in registry table, click “**Import**” and select “**Bulk Import Sequencing Data”**.
+
+![](/images/sequening-files-1.png)
+
+A viewer of your files on Latch will be displayed. To select multiple folders, click on the first folder, hold Shift on your keyboard, and select the final folder that contains the sequencing files you want to import. Then, choose “**Select**”.
+
+![](/images/sequening-files-2.png)
+
+Latch automatically looks through the files provided and infers the sample name and associated files based on the common structure of samples — one or more technical replicates per sample, each with either single end or paired end reads.
+
+Click on “**Autodetect**” to see how Latch infers sample names from file names. For example, the files `/test-data-sc-rna-seq-tcr-yost-et-al-1680568204.353618/SRR8315738/su002_pre_All_RNA_S1_L001_R1_001.fastq.gz and /test-data-sc-rna-seq-tcr-yost-et-al-1680568204.353618/SRR8315738/su002_pre_All_RNA_S1_L001_R2_001.fastq.gz` have the sample names `su002_pre_All_RNA_S1` as that is the common prefix between both files.
+
+![](/images/sequening-files-3.png)
+
+Let’s say we are not happy with these sample names, and would like the samples to be named `su002_pre_All_RNA` instead of `su002_pre_All_RNA_S1`. To do so, we can click on “Custom”.
+
+![](/images/sequening-files-4.png)
+
+The original file name will be split by characters to give you a list of word chunks that you can concatenate to create the custom sample name. Here, we can check off the boxes from su002 to RNA to create the custom sample name `su002_pre_All_RNA`. Click “**View Results**” to see the custom sample names.
+
+![](/images/sequening-files-5.png)
+
+Next, we have to assign the sequencing files to a column. Because there are no existing columns to choose from, let’s create a new column “**Reads**”.
+
+Click “**Import**” to start importing reads. A new column called “**Reads**” will be created and populated with the read files if they exist on Latch.
+
+![](/images/sequening-files-6.png)
+
+<Tip>
+  Pro-tip: Record names are helpful for linking data to particular records. If
+  you have sequencing files and their names match existing record names, you can
+  associate them with those records in bulk.
+</Tip>

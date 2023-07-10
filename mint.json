@@ -74,12 +74,25 @@
           "pages": [
             "wiki/registry/add-records-to-a-table/single-records",
             "wiki/registry/add-records-to-a-table/bulk-link",
-            "wiki/registry/add-records-to-a-table/bulk-link"
+            "wiki/registry/add-records-to-a-table/import-data"
           ]
         },
         "wiki/registry/modify-records-in-a-table",
         "wiki/registry/connect-records-across-tables",
         "wiki/registry/import-registry-records"
+      ]
+    },
+    {
+      "group": "Compute Environment",
+      "pages": [
+        "wiki/compute-environment/pods",
+        "wiki/compute-environment/data-transfer.mdx",
+        "wiki/compute-environment/installing-dependencies",
+        "wiki/compute-environment/setting-up-ssh",
+        "wiki/compute-environment/integration-with-vscode",
+        "wiki/compute-environment/integration-with-github",
+        "wiki/compute-environment/rshiny-app",
+        "wiki/compute-environment/troubleshooting"
       ]
     }
   ],

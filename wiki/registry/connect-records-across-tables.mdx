@@ -1,0 +1,48 @@
+---
+title: "Connect Records Across Tables"
+description: "As you centralize your biological data in Latch Registry, you will often find that some records are related or even dependent on one another. Linked records offer a powerful way for you to define relationships between records from different tables, enhancing your data analysis and enabling new insights that may have been difficult to discover without linked records."
+---
+
+## What are linked records?
+
+Linked records allow you to capture relationships between records from different tables.
+
+Let’s explore how linked records can be used to navigate complex relationships between tables via a biological example.
+
+For instance, in a study aiming to identify how the immune system responds to a specific disease or treatment at the single-cell level, researchers would collect samples from multiple patients. These samples would undergo single-cell sequencing and TCR sequencing to analyze genetic and transcriptomic profiles of individual immune cells and track the clonal expansion and diversity of T cells, respectively. By monitoring changes in the immune response over time in patients with multiple samples, researchers can gain insights into disease pathology and potential therapeutic targets.
+
+![](/images/connect-records-1.png)
+
+The diagram above outlines how the experiments and their data can be represented in Latch Registry. We have a Gene Expression Library table and TCR Library that contain results from 10X Cell Ranger V(D)J and Cell Ranger Count pipeline, respectively. These libraries are linked to raw sequencing reads from the Sequencing Reads table.
+
+## When should I create linked records?
+
+Linked records are used in a project when there is a one-to-many relationship between two tables.
+
+For example, imagine you are conducting a study where you extract multiple blood samples per patient for analysis. A patient can have many blood samples, but each sample can only belong to one patient.
+
+In this scenario, you would create two tables: one for patients and one for blood samples, with a link between them based on the sample ID.
+
+If you have a situation where there is a one-to-one relationship between two tables, it might make more sense to keep everything in one table. For example, each patient can only have one name, so you might consider keeping all of that information in a single table.
+
+## Create Linked Records
+
+To create a linked record, create an additional column of type “Linked Record”. As an example, we have a table called “Patients”, and we want to link records from the “Samples” to specify which samples belong to which patient.
+
+![](/images/connect-records-2.png)
+
+We can give a name to the new column (e.g. Linked Samples) and select the Target Table. The Target Table is a table whose records we want to link. Here, let’s select the table Samples as the reference table.
+
+![](/images/connect-records-3.png)
+
+Click “**Add**” to add the new column.
+
+![](/images/connect-records-4.png)
+
+Once you click “Associate Sample”, a reference table will pop up, allowing you to add linked samples.
+
+![](/images/connect-records-5.png)
+
+Once you have successfully added links to all records, clicking on the linked record will take you to the table where it comes from. The linkage enables easy navigation between records that are interdependent on each other.
+
+![](/images/connect-records-6.png)
