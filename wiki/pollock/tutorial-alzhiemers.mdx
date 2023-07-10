@@ -1,0 +1,135 @@
+---
+title: "Discovering Novel Alzheimer’s Gene Network using Microglial Subclusters"
+sidebarTitle: "Tutorial: Discovering Novel Alzheimer's Gene Networks using Microglial Subclusters"
+description: "Single-cell RNA sequencing allows for the preservation of cell-to-cell heterogeneity when assaying the global transcriptome. The technique relies on a library of DNA barcodes (‘UMI’) that serve as single cell identifiers, tagging RNA transcripts with a unique cellular ID before sequencing that can later be untangled computationally. Relative to bulk RNA-seq - which measures the RNA content of a cell “smoothie” derived from hundreds or thousands of cells - this cell isolation can reveal rare genetic signals which would otherwise be lost amidst the noise."
+---
+
+## Paper Overview
+
+In this tutorial, we will demonstrate how to leverage single-cell RNA-seq towards the characterization of a novel neural subset using the no-code Latch interface: Pollock. Specifically, we will do a deep dive into Olah et. al, a _Nature Communications_ study published in 2020, which elucidated a previously uncharacterized microglial subset associated with Alzheimer’s disease.
+
+Olah _et. al_ obtained brain tissue samples from patient neurosurgeries and autopsies, then generated scRNA-seq data from the samples. Using Louvain clustering, the group identified 14 transcriptionally distinct cell communities. Based on differential expression analysis, 9 clusters were identified as microglia - a signal that would have been lost in a bulk RNA-seq assay.
+
+Amidst these clusters, Olah _et. al_ demonstrated that cluster 7 was particularly high in certain gene expression patterns that are known to be associated with Alzheimer’s disease. We recapitulate this examination of cluster 7 using built-in features of Pollock on Latch, without any code.
+
+To add this dataset to your Latch account, please download the .h5ad file from [here](https://cellxgene.cziscience.com/collections/fcb3d1c1-03d2-41ac-8229-458e072b7a1c). To view the associated publication, click [here](https://www.nature.com/articles/s41467-020-19737-2).
+
+## Tutorial Overview
+After finishing this tutorial, you should be able to:
+
+1. Open a Pollock session to visualize a processed .h5ad file with a single click
+2. Run dimensionality reduction and clustering analyses to identify transcriptionally distinct clusters of single-cells within a larger sample
+3. Run differential expression to distinguish cell types via potential functional marker genes
+4. Select cell populations of interest, and run the sub-clustering function to generate a new count matrix
+5. Manually create annotations to intuitively examine subpopulations of interest, either by further sub-clustering or exploring differentially expressed gene networks
+
+## Part 1: Spinning up a Visualization Interface Using Pods
+
+1. First, navigate to the Latch sidebar and open the “Apps” tab
+
+![](/images/alzheimers-1.png)
+
+2. Then, navigate to the top right corner of the dashboard and click “Add App” > “Single Cell Visualizer”
+
+![](/images/alzheimers-2.png)
+
+3. In the “Create New Single Cell Visualizer” Page, select the H5AD file from your Latch data…..
+
+![](/images/alzheimers-3.png)
+
+4. Then give the session a Name, and navigate to the top right and click “Create Visualizer”.
+
+![](/images/alzheimers-4.png)
+
+5. Depending on file size, it may take a few minutes for the visualizer to launch.
+
+![](/images/alzheimers-5.png)
+
+6. Voila! Your scRNA-seq data is now ready to interact with in Pollock.
+
+![](/images/alzheimers-6.png)
+
+## Part 2: Run First-Pass Analysis on Single Cell Data: Dimensionality Reduction (tSNE) for Visualization and Louvain Community Detection
+
+_Isolating microglia from the whole sample for further analysis_
+
+1. Navigate to the top right corner of the Pollock interface to run Louvain clustering and detect cell communities using the built-in function on Pollock.
+
+![](/images/alzheimers-7.png)
+
+2. On the right hand dashboard, a “louvain” annotation group will appear
+
+3. Select all Louvain clusters, or specific clusters of interest to continue viewing in Pollock, overlaid over tSNE or UMAP embedding.
+
+_tSNE_
+
+_UMAP_
+
+## Part 3: Running Differential Expression to Identify Cluster-Specific Expression Patterns
+
+We aim to recapitulate Figure 2b from Olah et. al, where the authors annotate the different microglia subsets revealed by Louvain clustering. The authors identify several transcriptionally distinct subsets within the microglial family, with proposed markers for functional identification of each subset as visualized below:
+
+_PTPRC - lineage marker for immune and myeloid cell lineages_
+
+_ISG15 - interferon signaling and white matter marker_
+
+_CD83 - marker associated with mature dendritic cells (APCs)_
+
+_CD74 - marked upregulation on antigen presentation/processing_
+
+- CD74hi marks a subset that Olah et. al hereafter refer to as cluster 7, which contains CD74 expression levels 2 standard deviations higher than the dataset mean.
+
+_CD47hi cluster visualized in tSNE embedding_
+
+_CD47 expression across the annotated microglial clusters_
+
+In alignment with the paper’s results, CD47 expression level is higher than the rest of the microglia clusters, as demonstrated in our heatmap below.
+
+Citation: Olah et. al, Nat Comm 2020 (Fig 8e)
+
+From here, the authors compare the transcriptional profile of cluster 7 with the public [Disease Ontology](https://disease-ontology.org/) database. They used the DOSE R package to cross-reference gene signatures enriched in each cluster with gene networks of established relevance to various neurological diseases.
+
+According to the results of the analysis, the CD74hi cluster-specific gene expression correlates with genetic networks enriched in neural samples derived from Alzheimer’s disease patients.
+
+## Conclusion
+
+Single-cell RNA sequencing can pinpoint the molecular characteristics of sub-populations which may otherwise be difficult to elucidate. These observations may only occur _in silico_, but the findings can garner additional meaning when cross-referenced with public datasets and validated in follow-up studies. From here, Olah et. al establish that the newly identified “microglial cluster 7” is rarer in histological samples derived from Alzheimer’s patients.
+
+## Appendix: Sub-Clustering and Annotation functions for Fractal Analysis on Pollock
+1. Pollock allows for the most flexible annotations of individual cellular events available for a single-cell viewer via three mechanisms:
+    1. Importing annotations from within .h5ad files
+    2. Importing trained ontology from personal data sets
+    3. Interactive, manual cluster selection and annotation
+2. To practice a), let’s explore the cluster annotations imported from Olah _et. al._
+3. We can manually isolate microglial subsets of interest from these annotations as defined by Olah _et. al_, excluding those associated with other myeloid lineages.
+4. We can then navigate to the “Subcluster” function, and re-run tSNE on the 9 annotated cell groups.
+
+![](/images/alzheimers-8.png)
+
+5. After tSNE, we can visualize the emergence of new sub-groups, and continue to explore our data further.
+6. We can also manually select clusters [option c)] using the draw tool embedded in Pollock. We’ll leverage this tool to zoom in on a cluster associated with a specific disease state by selecting the “disease” annotation from the right annotation bar.
+
+![](/images/alzheimers-9.png)
+
+7. This allows us to visualize the disease samples of interest. We can now use the Pollock selection tool to isolate cells from patients with “temporal lobe epilepsy”.
+8. Then, we can navigate to the “Annotations” bar and click the plus sign.
+
+![](/images/alzheimers-10.png)
+
+9. Then create a brand new Annotation manually, and control those cell events with a single click.
+
+![](/images/alzheimers-11.png)
+
+10. To further explore this cluster for intra-heterogeneity, we can run the “Subcluster” function and a UMAP dimensional reduction on the manually isolated population.
+
+![](/images/alzheimers-12.png)
+
+11. UMAP embedding reveals several subclusters within the selected epilepsy disease group samples. To more closely examine these cellular events, we continue to subcluster further, or highlight differentially expressed genes to characterize distinct cell subsets.
+
+## Next Steps with Pollock
+
+Pollock enables easy and interactive manipulation of rich single-cell datasets for the extraction of biological insights. Latch will continue to build functionality into Pollock in order to analyze and make sense of multi-dimensional data, immuno-repetoire analysis, mitochondrial lineage tracing, functional genomics screens, and fine mapping of cell state trajectories.
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
