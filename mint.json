@@ -86,7 +86,7 @@
       "group": "Compute Environment",
       "pages": [
         "wiki/compute-environment/pods",
-        "wiki/compute-environment/data-transfer.mdx",
+        "wiki/compute-environment/data-transfer",
         "wiki/compute-environment/installing-dependencies",
         "wiki/compute-environment/setting-up-ssh",
         "wiki/compute-environment/integration-with-vscode",

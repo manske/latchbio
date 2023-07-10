@@ -1,0 +1,39 @@
+---
+title: "Set up SSH Access"
+description: "You may want to set up SSH access for Pod if you want to access Pod from your local terminal or open your favorite IDE, such as Visual Studio Code, inside a Pod."
+---
+
+1. Open the terminal on your personal computer.
+2. Pods use public SSH keys to authorize which machine is allowed to connect to Pods.
+3. Verify that you have a public SSH key on your computer by printing the key:
+
+```bash
+$ cat ~/.ssh/id_rsa.pub
+```
+
+If you receive an error message saying that **id_rsa.pub** doesn’t exist, it means that your computer doesn’t have a public SSH key.
+
+Generate one using ssh-keygen: `$ ssh-keygen`
+
+4. Copy the public SSH key from your computer with: `$ pbcopy < ~/.ssh/id_rsa.pub`
+5. Go back to Latch, then click [Account Settings > Developer Settings](https://console.latch.bio/settings/developer).
+6. Paste in your SSH key. Make sure that there is no extra line or space at the end of the SSH key.
+
+![](/images/ssh-1.png)
+
+<Note>
+  Latch only authorizes access to users whose public SSH keys are added here. If
+  you have multiple developers on the team who want to access the same Pod, it
+  is recommended that you add their keys here. Latch supports up to 50 keys for
+  each Pod.
+</Note>
+
+7. Once your Pod is created, copy the SSH endpoint command on the bottom right sidebar to your terminal. You can only SSH into a Pod if it is running.
+
+![](/images/ssh-2.png)
+
+If the above steps does not work for you, visit our [Troubleshooting](/wiki/compute-environment/troubleshooting) section to view the most common errors when setting SSH access with Pod.
+
+## Was this article helpful?
+
+[👍](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-yes) or [👎](https://gucjxnd0b2v.typeform.com/to/pHRudLeW?typeform-medium=embed-email#source=getting-started&answers-dba3616d-33cf-4869-9661-56a59736abc2=dba3616d-33cf-4869-9661-56a59736abc2-no)
